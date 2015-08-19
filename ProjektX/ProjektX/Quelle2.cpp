@@ -10,7 +10,7 @@ using namespace std;
 int main(int argc, char *argv[])
 {   //Bild wird geladen, MSER und Speichervariablen werden erstellt
 	Mat image = imread("adam1.png", 0);
-	Mat imageOut = imread("adam1.png", 0);
+	Mat imageOut = imread("adam2.png", 0);
 	Ptr<cv::MSER> mser = MSER::create();
 	vector< vector<Point > > ptblobs;
 	vector<Rect> bboxes;
@@ -24,15 +24,16 @@ int main(int argc, char *argv[])
 	{
 		for (int j = 0; j < ptblobs.at(i).size(); j++) {
 			Point pt = ptblobs.at(i).at(j);
-			speicher[i] = Point2f(pt.x, pt.y);
+			speicher.push_back(Point2f(pt.x, pt.y)); //hinzufügen von PointKoordinaten x und y zu Zwischenspeicher
 		}
 	};
 	//Umrechnung von Point2f -> Keypoints
 	KeyPoint::convert(speicher, keypoints);
 	//zeichnen der Keypoints
 	drawKeypoints(image, keypoints, imageOut);
-	
-
+	//bild speichern
+	imwrite("adam2.png", imageOut);
+	//Bild anzeigen
 	namedWindow("image");
 	imshow("image", imageOut);
 	waitKey(0);
