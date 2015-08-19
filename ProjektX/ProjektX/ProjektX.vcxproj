@@ -124,7 +124,7 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
-    <ClCompile Include="Quelle.cpp" />
+    <ClCompile Include="QuelleProjection.cpp" />
     <ClCompile Include="Quelle1.cpp" />
     <ClCompile Include="Quelle2.cpp" />
   </ItemGroup>
