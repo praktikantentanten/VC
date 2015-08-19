@@ -8,7 +8,7 @@
 using namespace std;	// Erleichterung durch Weglassen von Header std
 using namespace cv;	// Erleichterung durch Weglassen von Header cv
 
-int main(int argc, char** argv)
+int main1(int argc, char** argv)
 {
 	std::cout << "OpenCV Version: " // Ausgabe der Version von OpenCV
 		<< CV_MAJOR_VERSION << "."
