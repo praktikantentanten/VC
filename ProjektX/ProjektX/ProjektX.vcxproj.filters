@@ -21,8 +21,6 @@
     <ClCompile Include="Quelle1.cpp">
       <Filter>Headerdateien</Filter>
     </ClCompile>
-    <ClCompile Include="Quelle2.cpp">
-      <Filter>Headerdateien</Filter>
-    </ClCompile>
+    <ClCompile Include="Quelle2.cpp" />
   </ItemGroup>
 </Project>

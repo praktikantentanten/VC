@@ -17,24 +17,36 @@ int main(int argc, char *argv[])
 	//MSER Detect wird ausgeführt 
 	mser->detectRegions(image, ptblobs, bboxes);
 
-	//Umrechnung von Point -> Point2f für drawKeypoints
-	vector <KeyPoint >keypoints;
-	vector <Point2f> speicher;
-	for (int i = 0; i < ptblobs.size();i++)
+	warpPerspective( );
+
+	for (int i = 0; i < ptblobs.size(); i++)
 	{
-		for (int j = 0; j < ptblobs.at(i).size(); j++) {
-			Point pt = ptblobs.at(i).at(j);
-			speicher.push_back(Point2f(pt.x, pt.y)); //hinzufügen von PointKoordinaten x und y zu Zwischenspeicher
-		}
-	};
-	//Umrechnung von Point2f -> Keypoints
-	KeyPoint::convert(speicher, keypoints);
-	//zeichnen der Keypoints
-	drawKeypoints(image, keypoints, imageOut);
-	//bild speichern
+		RotatedRect rrr = fitEllipse(ptblobs.at(i));
+		ellipse(imageOut,rrr, (0,255,255 )) ;
+	}
+
 	imwrite("adam2.png", imageOut);
 	//Bild anzeigen
 	namedWindow("image");
 	imshow("image", imageOut);
 	waitKey(0);
 }
+///Umrechnung von Point -> Point2f für drawKeypoints
+/*vector <KeyPoint >keypoints;
+vector <Point2f> speicher;
+for (int i = 0; i < ptblobs.size();i++)
+{
+for (int j = 0; j < ptblobs.at(i).size(); j++)
+{
+Point pt = ptblobs.at(i).at(j);
+speicher.push_back(Point2f(pt.x, pt.y)); //hinzufügen von PointKoordinaten x und y zu Zwischenspeicher
+}
+};
+
+
+//Umrechnung von Point2f -> Keypoints
+//KeyPoint::convert(speicher, keypoints);
+//zeichnen der Keypoints
+//drawContours(imageOut)
+//drawKeypoints(image, keypoints, imageOut);
+*/
