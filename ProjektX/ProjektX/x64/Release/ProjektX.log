@@ -1,17 +1,31 @@
-﻿Der Buildvorgang wurde am 20.08.2015 15:47:36 gestartet.
+﻿Der Buildvorgang wurde am 20.08.2015 16:22:08 gestartet.
      1>Projekt "C:\Users\mens\Source\Repos\VC\ProjektX\ProjektX\ProjektX.vcxproj" auf Knoten "2", Build Ziel(e).
      1>ClCompile:
-         C:\Program Files (x86)\Microsoft Visual Studio 14.0\VC\bin\x86_amd64\CL.exe /c /IC:\Users\Public\VC\Praktikum\opencv\build\x64\vc12\..\..\include /Zi /nologo /W3 /WX- /sdl /O2 /Oi /GL /D _MBCS /Gm- /EHsc /MD /GS /Gy /fp:precise /Zc:wchar_t /Zc:forScope /Zc:inline /Fo"x64\Release\\" /Fd"x64\Release\vc140.pdb" /Gd /TP /errorReport:prompt BildSchneiden.cpp Projection.cpp
+         C:\Program Files (x86)\Microsoft Visual Studio 14.0\VC\bin\x86_amd64\CL.exe /c /IC:\Users\Public\VC\Praktikum\opencv\build\x64\vc12\..\..\include /Zi /nologo /W3 /WX- /sdl /O2 /Oi /GL /D _MBCS /Gm- /EHsc /MD /GS /Gy /fp:precise /Zc:wchar_t /Zc:forScope /Zc:inline /Fo"x64\Release\\" /Fd"x64\Release\vc140.pdb" /Gd /TP /errorReport:prompt BildSchneiden.cpp Projection.cpp Projektion.cpp Quelle1.cpp Quelle2.cpp
          BildSchneiden.cpp
          Projection.cpp
-     1>Projection.cpp(110): error C2664: "IplImage *BildSchneiden::cropImage(const IplImage *,const CvRect)" : Konvertierung von Argument 1 von "cv::Mat *" in "const IplImage *" nicht möglich
-         Projection.cpp(110): note: Die Typen, auf die verwiesen wird, sind nicht verknüpft; die Konvertierung erfordert einen reinterpret_cast-Operator oder eine Typumwandlung im C- oder Funktionsformat.
-     1>Projection.cpp(114): error C2665: "cv::imshow": Durch keine der 2 Überladungen konnten alle Argumenttypen konvertiert werden.
-         C:\Users\Public\VC\Praktikum\opencv\build\include\opencv2/highgui.hpp(488): note: kann "void cv::imshow(const cv::String &,const cv::ogl::Texture2D &)" sein
-         C:\Users\Public\VC\Praktikum\opencv\build\include\opencv2/highgui.hpp(305): note: oder "void cv::imshow(const cv::String &,cv::InputArray)"
-         Projection.cpp(114): note: bei Anpassung der Argumentliste "(const char [6], CvRect)"
+     1>c:\users\mens\source\repos\vc\projektx\projektx\Projektion.h(24): error C3646: "change": Unbekannter Überschreibungsspezifizierer
+     1>c:\users\mens\source\repos\vc\projektx\projektx\Projektion.h(24): error C2059: Syntaxfehler: "("
+     1>c:\users\mens\source\repos\vc\projektx\projektx\Projektion.h(25): error C2334: Unerwartete(s) Token vor "{"; sichtbarer Funktionstext wird übersprungen
+     1>Projection.cpp(31): error C2039: "change": Ist kein Element von "Projektion"
+         c:\users\mens\source\repos\vc\projektx\projektx\Projektion.h(9): note: Siehe Deklaration von "Projektion"
+     1>Projection.cpp(31): error C3861: "change": Bezeichner wurde nicht gefunden.
+     1>Projection.cpp(34): error C2065: "alpha": nichtdeklarierter Bezeichner
+     1>Projection.cpp(35): error C2065: "beta": nichtdeklarierter Bezeichner
+     1>Projection.cpp(36): error C2065: "gamma": nichtdeklarierter Bezeichner
+     1>Projection.cpp(39): error C2065: "dx": nichtdeklarierter Bezeichner
+     1>Projection.cpp(40): error C2065: "dy": nichtdeklarierter Bezeichner
+     1>Projection.cpp(41): error C2065: "dz": nichtdeklarierter Bezeichner
+     1>Projection.cpp(57): error C2059: Syntaxfehler: "}"
+     1>Projection.cpp(57): error C2143: Syntaxfehler: Es fehlt ";" vor "}"
+         Projektion.cpp
+     1>c:\users\mens\source\repos\vc\projektx\projektx\Projektion.h(24): error C3646: "change": Unbekannter Überschreibungsspezifizierer
+     1>c:\users\mens\source\repos\vc\projektx\projektx\Projektion.h(24): error C2059: Syntaxfehler: "("
+     1>c:\users\mens\source\repos\vc\projektx\projektx\Projektion.h(25): error C2334: Unerwartete(s) Token vor "{"; sichtbarer Funktionstext wird übersprungen
+         Quelle1.cpp
+         Quelle2.cpp
      1>Die Erstellung des Projekts "C:\Users\mens\Source\Repos\VC\ProjektX\ProjektX\ProjektX.vcxproj" ist abgeschlossen, Build Ziel(e) -- FEHLER.
 
 Fehler beim Buildvorgang.
 
-Verstrichene Zeit 00:00:01.91
+Verstrichene Zeit 00:00:04.84

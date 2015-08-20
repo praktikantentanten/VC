@@ -126,6 +126,7 @@
   <ItemGroup>
     <ClCompile Include="BildSchneiden.cpp" />
     <ClCompile Include="Projection.cpp" />
+    <ClCompile Include="Projektion.cpp" />
     <ClCompile Include="Quelle1.cpp" />
     <ClCompile Include="Quelle2.cpp" />
   </ItemGroup>
@@ -134,6 +135,7 @@
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="BildSchneiden.h" />
+    <ClInclude Include="Projektion.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
