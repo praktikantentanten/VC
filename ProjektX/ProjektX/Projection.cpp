@@ -2,6 +2,8 @@
 #include <opencv2/core/core.hpp>
 #include <opencv2/highgui/highgui.hpp>
 #include <iostream>
+#include "BildSchneiden.h"
+
 
 
 using namespace cv;
@@ -10,6 +12,7 @@ using namespace std;
 
 int main(int argc, char *argv[])
 {
+	/// Projektionen ----------------------------------------------------------------------------------
 	/*
 	
 input: the image that you want rotated.
@@ -27,9 +30,10 @@ f: focal distance (distance between camera and image, a smaller number exaggerat
 
 
 
+
 	Mat image = imread("adam1.png", 0);
 	Mat imageOut = imread("adam5.png", 0);
-	double alpha = 90; double beta = 90; double gamma = 80; double dx = 90; double dy = 90; double dz = 90; double f = 50;
+	double alpha = 90; double beta = 90; double gamma = 90; double dx = 90; double dy = 90; double dz = 90; double f = 50;
 	{
 		string a = to_string((int)alpha-90);
 		string b = to_string((int)beta-90);
@@ -95,7 +99,14 @@ f: focal distance (distance between camera and image, a smaller number exaggerat
 		string dys = to_string((int)dy);
 		string dzs = to_string((int)dz);
 		string fs  = to_string((int)f);
+
 		s ="adam "+a + " , " +b + " , " +c + " _ " + dxs+ " , " + dys + " , "+ " , " + dzs + " , " + fs + ".png";
+		
+		CvRect imageB ;
+		IplImage imageA = imread("adam1.png");
+		BildSchneiden cImage;
+		cImage.cropImage(imageA, imageB);
+
 		imwrite(s, imageOut);
 		namedWindow("image");
 		imshow("image", imageOut);
