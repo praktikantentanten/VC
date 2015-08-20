@@ -7,6 +7,8 @@
 using namespace cv;
 using namespace std;
 
+
+// MSER Mit Elipsen - Einzelne_Keypoint-Funktion in den Kommentaren
 int main1(int argc, char *argv[])
 {   //Bild wird geladen, MSER und Speichervariablen werden erstellt
 	Mat image = imread("adam1.png", 0);

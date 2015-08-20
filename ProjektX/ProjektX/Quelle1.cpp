@@ -8,6 +8,9 @@
 using namespace std;	// Erleichterung durch Weglassen von Header std
 using namespace cv;	// Erleichterung durch Weglassen von Header cv
 
+
+// dandan V1
+
 int main1(int argc, char** argv)
 {
 	std::cout << "OpenCV Version: " // Ausgabe der Version von OpenCV

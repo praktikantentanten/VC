@@ -24,5 +24,8 @@
     <ClCompile Include="QuelleProjection.cpp">
       <Filter>Headerdateien</Filter>
     </ClCompile>
+    <ClCompile Include="QuelleBildSchneiden.cpp">
+      <Filter>Headerdateien</Filter>
+    </ClCompile>
   </ItemGroup>
 </Project>
