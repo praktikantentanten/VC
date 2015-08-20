@@ -42,6 +42,6 @@ int main(int argc, char *argv[])
 		namedWindow("image");
 		imshow("image", imageOut);
 		waitKey(0);
-	}
+
 }
 

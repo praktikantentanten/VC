@@ -5,11 +5,13 @@
 #include <opencv2/highgui/highgui.hpp>
 #include <iostream>
 
+
+using namespace cv;
+
 class Projektion
 {
 public:
-	Projektion();
-	~Projektion();
+
 	/*
 	input: the image that you want rotated.
 	output: the Mat object to put the resulting file in.
@@ -82,7 +84,7 @@ public:
 		// Apply matrix transformation
 		warpPerspective(image, imageOut, trans, image.size(), INTER_LANCZOS4);
 		return imageOut;
-	}
+	};
 	
 };
 

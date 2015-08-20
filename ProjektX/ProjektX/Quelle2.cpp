@@ -31,6 +31,7 @@ int main1(int argc, char *argv[])
 	namedWindow("image");
 	imshow("image", imageOut);
 	waitKey(0);
+	return -1;
 }
 ///Umrechnung von Point -> Point2f für drawKeypoints
 /*vector <KeyPoint >keypoints;
