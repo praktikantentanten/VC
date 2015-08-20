@@ -102,10 +102,12 @@ f: focal distance (distance between camera and image, a smaller number exaggerat
 
 		s ="adam "+a + " , " +b + " , " +c + " _ " + dxs+ " , " + dys + " , "+ " , " + dzs + " , " + fs + ".png";
 		
-		CvRect imageB ;
+		
+
 		IplImage imageA = imread("adam1.png");
+		CvRect imageB ;
 		BildSchneiden cImage;
-		cImage.cropImage(imageA, imageB);
+		cImage.cropImage(&imageA, imageB);
 
 		imwrite(s, imageOut);
 		namedWindow("image");
