@@ -17,13 +17,20 @@ int main(int argc, char *argv[])
 
 		Mat image = imread("adam1.png", 0);
 		double alpha = 90; double beta = 90; double gamma = 90; double dx = 90; double dy = 90; double dz = 90;
-		Mat imageOut = Projektion::change(image);
-		
+		Projektion Proj ;
+		Mat imageOut = imread("adam1.png", 0);
+		//imageOut = Proj->change(*image, 90, 100);  // weitere Änderungen müssen noch durchgeführt werden.
+		imageOut = Proj.change(image, 90, 100);
+
+		imwrite("adam2", imageOut);
+		namedWindow("image");
+		imshow("image", imageOut);
+		waitKey(0);
+
 
 		string a = to_string((int)alpha - 90);
 		string b = to_string((int)beta - 90);
-		string c = to_string((int)gamma - 90);
-	
+		string c = to_string((int)gamma - 90);	
 		string s;
 		string dxs = to_string((int)dx);
 		string dys = to_string((int)dy);
@@ -31,17 +38,12 @@ int main(int argc, char *argv[])
 
 		s ="adam "+a + " , " +b + " , " +c + " _ " + dxs+ " , " + dys + " , "+ " , " + dzs +  ".png";
 		
-		
-
 		IplImage imageA = imread("adam1.png");
 		CvRect imageB ;
 		BildSchneiden cImage;
 		cImage.cropImage(&imageA, imageB);
 
-		imwrite(s, imageOut);
-		namedWindow("image");
-		imshow("image", imageOut);
-		waitKey(0);
+
 
 }
 

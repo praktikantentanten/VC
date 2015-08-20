@@ -1,18 +1,18 @@
-﻿Der Buildvorgang wurde am 20.08.2015 20:02:32 gestartet.
+﻿Der Buildvorgang wurde am 20.08.2015 20:09:25 gestartet.
      1>Projekt "C:\Users\mens\Source\Repos\VC\ProjektX\ProjektX\ProjektX.vcxproj" auf Knoten "2", Build Ziel(e).
      1>ClCompile:
-         C:\Program Files (x86)\Microsoft Visual Studio 14.0\VC\bin\x86_amd64\CL.exe /c /IC:\Users\Public\VC\Praktikum\opencv\build\x64\vc12\..\..\include /ZI /nologo /W3 /WX- /sdl /Od /D _MBCS /Gm /EHsc /RTC1 /MDd /GS /fp:precise /Zc:wchar_t /Zc:forScope /Zc:inline /Fo"x64\Debug\\" /Fd"x64\Debug\vc140.pdb" /Gd /TP /errorReport:prompt Projection.cpp Projektion.cpp Quelle2.cpp
-         Quelle2.cpp
-     1>c:\users\mens\source\repos\vc\projektx\projektx\quelle2.cpp(35): error C2143: Syntaxfehler: Es fehlt ";" vor "}"
-         Projektion.cpp
-     1>c:\users\mens\source\repos\vc\projektx\projektx\projektion.cpp(10): error C2600: "Projektion::Projektion": Vom Compiler generierte spezielle Memberfunktion kann nicht definiert werden (vorherige Deklaration in der Klasse erforderlich)
-     1>c:\users\mens\source\repos\vc\projektx\projektx\projektion.cpp(15): error C2600: "Projektion::~Projektion": Vom Compiler generierte spezielle Memberfunktion kann nicht definiert werden (vorherige Deklaration in der Klasse erforderlich)
+         C:\Program Files (x86)\Microsoft Visual Studio 14.0\VC\bin\x86_amd64\CL.exe /c /IC:\Users\Public\VC\Praktikum\opencv\build\x64\vc12\..\..\include /ZI /nologo /W3 /WX- /sdl /Od /D _MBCS /Gm /EHsc /RTC1 /MDd /GS /fp:precise /Zc:wchar_t /Zc:forScope /Zc:inline /Fo"x64\Debug\\" /Fd"x64\Debug\vc140.pdb" /Gd /TP /errorReport:prompt Projection.cpp
          Projection.cpp
-     1>c:\users\mens\source\repos\vc\projektx\projektx\projection.cpp(20): error C2352: "Projektion::change": Unzulässiger Aufruf einer nicht statischen Memberfunktion
-         c:\users\mens\source\repos\vc\projektx\projektx\projektion.h(26): note: Siehe Deklaration von "Projektion::change"
-         Code wird generiert...
-     1>Die Erstellung des Projekts "C:\Users\mens\Source\Repos\VC\ProjektX\ProjektX\ProjektX.vcxproj" ist abgeschlossen, Build Ziel(e) -- FEHLER.
+       Link:
+         C:\Program Files (x86)\Microsoft Visual Studio 14.0\VC\bin\x86_amd64\link.exe /ERRORREPORT:PROMPT /OUT:"C:\Users\mens\Source\Repos\VC\ProjektX\x64\Debug\ProjektX.exe" /INCREMENTAL /NOLOGO /LIBPATH:C:\Users\Public\VC\Praktikum\opencv\build\x64\vc12\lib opencv_ts300d.lib opencv_world300d.lib kernel32.lib user32.lib gdi32.lib winspool.lib comdlg32.lib advapi32.lib shell32.lib ole32.lib oleaut32.lib uuid.lib odbc32.lib odbccp32.lib /MANIFEST /MANIFESTUAC:"level='asInvoker' uiAccess='false'" /manifest:embed /Debug /PDB:"C:\Users\mens\Source\Repos\VC\ProjektX\x64\Debug\ProjektX.pdb" /TLBID:1 /DYNAMICBASE /NXCOMPAT /IMPLIB:"C:\Users\mens\Source\Repos\VC\ProjektX\x64\Debug\ProjektX.lib" /MACHINE:X64 x64\Debug\BildSchneiden.obj
+         x64\Debug\Projection.obj
+         x64\Debug\Projektion.obj
+         x64\Debug\Quelle1.obj
+         x64\Debug\Quelle2.obj
+         LINK : C:\Users\mens\Source\Repos\VC\ProjektX\x64\Debug\ProjektX.exe wurde nicht gefunden oder beim letzten inkrementellen Linkvorgang nicht erstellt; vollständiger Link wird durchgeführt.
+         ProjektX.vcxproj -> C:\Users\mens\Source\Repos\VC\ProjektX\x64\Debug\ProjektX.exe
+     1>Die Erstellung von Projekt "C:\Users\mens\Source\Repos\VC\ProjektX\ProjektX\ProjektX.vcxproj" ist abgeschlossen (Build Ziel(e)).
 
-Fehler beim Buildvorgang.
+Der Buildvorgang wurde erfolgreich ausgeführt.
 
-Verstrichene Zeit 00:00:03.13
+Verstrichene Zeit 00:00:02.11

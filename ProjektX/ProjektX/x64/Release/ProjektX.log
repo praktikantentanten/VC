@@ -1,31 +1,23 @@
-﻿Der Buildvorgang wurde am 20.08.2015 16:22:08 gestartet.
+﻿Der Buildvorgang wurde am 20.08.2015 20:36:20 gestartet.
      1>Projekt "C:\Users\mens\Source\Repos\VC\ProjektX\ProjektX\ProjektX.vcxproj" auf Knoten "2", Build Ziel(e).
      1>ClCompile:
-         C:\Program Files (x86)\Microsoft Visual Studio 14.0\VC\bin\x86_amd64\CL.exe /c /IC:\Users\Public\VC\Praktikum\opencv\build\x64\vc12\..\..\include /Zi /nologo /W3 /WX- /sdl /O2 /Oi /GL /D _MBCS /Gm- /EHsc /MD /GS /Gy /fp:precise /Zc:wchar_t /Zc:forScope /Zc:inline /Fo"x64\Release\\" /Fd"x64\Release\vc140.pdb" /Gd /TP /errorReport:prompt BildSchneiden.cpp Projection.cpp Projektion.cpp Quelle1.cpp Quelle2.cpp
-         BildSchneiden.cpp
+         C:\Program Files (x86)\Microsoft Visual Studio 14.0\VC\bin\x86_amd64\CL.exe /c /IC:\Users\Public\VC\Praktikum\opencv\build\x64\vc12\..\..\include /Zi /nologo /W3 /WX- /sdl /O2 /Oi /GL /D _MBCS /Gm- /EHsc /MD /GS /Gy /fp:precise /Zc:wchar_t /Zc:forScope /Zc:inline /Fo"x64\Release\\" /Fd"x64\Release\vc140.pdb" /Gd /TP /errorReport:prompt Projection.cpp Projektion.cpp
          Projection.cpp
-     1>c:\users\mens\source\repos\vc\projektx\projektx\Projektion.h(24): error C3646: "change": Unbekannter Überschreibungsspezifizierer
-     1>c:\users\mens\source\repos\vc\projektx\projektx\Projektion.h(24): error C2059: Syntaxfehler: "("
-     1>c:\users\mens\source\repos\vc\projektx\projektx\Projektion.h(25): error C2334: Unerwartete(s) Token vor "{"; sichtbarer Funktionstext wird übersprungen
-     1>Projection.cpp(31): error C2039: "change": Ist kein Element von "Projektion"
-         c:\users\mens\source\repos\vc\projektx\projektx\Projektion.h(9): note: Siehe Deklaration von "Projektion"
-     1>Projection.cpp(31): error C3861: "change": Bezeichner wurde nicht gefunden.
-     1>Projection.cpp(34): error C2065: "alpha": nichtdeklarierter Bezeichner
-     1>Projection.cpp(35): error C2065: "beta": nichtdeklarierter Bezeichner
-     1>Projection.cpp(36): error C2065: "gamma": nichtdeklarierter Bezeichner
-     1>Projection.cpp(39): error C2065: "dx": nichtdeklarierter Bezeichner
-     1>Projection.cpp(40): error C2065: "dy": nichtdeklarierter Bezeichner
-     1>Projection.cpp(41): error C2065: "dz": nichtdeklarierter Bezeichner
-     1>Projection.cpp(57): error C2059: Syntaxfehler: "}"
-     1>Projection.cpp(57): error C2143: Syntaxfehler: Es fehlt ";" vor "}"
          Projektion.cpp
-     1>c:\users\mens\source\repos\vc\projektx\projektx\Projektion.h(24): error C3646: "change": Unbekannter Überschreibungsspezifizierer
-     1>c:\users\mens\source\repos\vc\projektx\projektx\Projektion.h(24): error C2059: Syntaxfehler: "("
-     1>c:\users\mens\source\repos\vc\projektx\projektx\Projektion.h(25): error C2334: Unerwartete(s) Token vor "{"; sichtbarer Funktionstext wird übersprungen
-         Quelle1.cpp
-         Quelle2.cpp
-     1>Die Erstellung des Projekts "C:\Users\mens\Source\Repos\VC\ProjektX\ProjektX\ProjektX.vcxproj" ist abgeschlossen, Build Ziel(e) -- FEHLER.
+       Link:
+         C:\Program Files (x86)\Microsoft Visual Studio 14.0\VC\bin\x86_amd64\link.exe /ERRORREPORT:PROMPT /OUT:"C:\Users\mens\Source\Repos\VC\ProjektX\x64\Release\ProjektX.exe" /NOLOGO /LIBPATH:C:\Users\Public\VC\Praktikum\opencv\build\x64\vc12\lib opencv_ts300.lib opencv_world300.lib kernel32.lib user32.lib gdi32.lib winspool.lib comdlg32.lib advapi32.lib shell32.lib ole32.lib oleaut32.lib uuid.lib odbc32.lib odbccp32.lib /MANIFEST /MANIFESTUAC:"level='asInvoker' uiAccess='false'" /manifest:embed /Debug /PDB:"C:\Users\mens\Source\Repos\VC\ProjektX\x64\Release\ProjektX.pdb" /OPT:REF /OPT:ICF /LTCG:incremental /TLBID:1 /DYNAMICBASE /NXCOMPAT /IMPLIB:"C:\Users\mens\Source\Repos\VC\ProjektX\x64\Release\ProjektX.lib" /MACHINE:X64 x64\Release\BildSchneiden.obj
+         x64\Release\Projection.obj
+         x64\Release\Projektion.obj
+         x64\Release\Quelle1.obj
+         x64\Release\Quelle2.obj
+         Code wird generiert.
+         79 of 209 functions (37.8%) were compiled, the rest were copied from previous compilation.
+           46 functions were new in current compilation
+           12 functions had inline decision re-evaluated but remain unchanged
+         Codegenerierung ist abgeschlossen.
+         ProjektX.vcxproj -> C:\Users\mens\Source\Repos\VC\ProjektX\x64\Release\ProjektX.exe
+     1>Die Erstellung von Projekt "C:\Users\mens\Source\Repos\VC\ProjektX\ProjektX\ProjektX.vcxproj" ist abgeschlossen (Build Ziel(e)).
 
-Fehler beim Buildvorgang.
+Der Buildvorgang wurde erfolgreich ausgeführt.
 
-Verstrichene Zeit 00:00:04.84
+Verstrichene Zeit 00:00:03.06
