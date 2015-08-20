@@ -26,3 +26,9 @@
 *.exe
 *.out
 *.app
+
+# Logfiles and Shit
+*.tlog
+*.log
+*.lastbuildstate
+*.vcxproj
