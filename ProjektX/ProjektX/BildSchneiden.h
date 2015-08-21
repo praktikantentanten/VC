@@ -5,6 +5,8 @@
 #include <opencv2/highgui/highgui.hpp>
 #include <iostream>
 
+using namespace cv;
+
 class BildSchneiden
 {
 public:
@@ -40,7 +42,18 @@ public:
 		cvCopy(img, imageCropped);	// Copy just the region.
 
 		return imageCropped;
-	}
+	};
+
+	Mat RandErzeugen( Mat image,Mat imageOut)
+	{
+		int top = (int)(0.5*image.rows); int bottom = (int)(0.5*image.rows);
+		int left = (int)(0.5*image.cols); int right = (int)(0.5*image.cols);
+		copyMakeBorder(image, imageOut, top, bottom, left, right, BORDER_CONSTANT, 0);
+		return imageOut;
+
+
+
+	};
 
 };
 

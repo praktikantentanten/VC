@@ -26,9 +26,9 @@ public:
 	dz: translation along the z axis (distance to the image)
 	f: focal distance (distance between camera and image, a smaller number exaggerates the effect)
 	*/
-	Mat change(Mat image, double alpha = 90, double beta = 90, double gamma = 90, double dx = 90, double dy = 90, double dz = 90)
+	Mat change(Mat image,double rand =0.5, double alpha = 90, double beta = 90, double gamma = 90, double dx = 90, double dy = 90, double dz = 90)
 	{
-		if (image.size) {
+			
 			double f = dz;
 			Mat imageOut = image;
 
@@ -85,10 +85,14 @@ public:
 			// Final transformation matrix
 			Mat trans = A2 * (T * (R * A1));
 
+			
+			Size x = Size((double)image.size().height*(rand+1), (double)image.size().width*(rand + 1));
+			///Size x = Size((double)image.size().height, (double)image.size().width);
+
 			// Apply matrix transformation
-			warpPerspective(image, imageOut, trans, image.size(), INTER_LANCZOS4);
+			warpPerspective(image, imageOut, trans, x, INTER_LANCZOS4);
 			return imageOut;
-		};
+		
 	};
 	
 };
