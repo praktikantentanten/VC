@@ -125,7 +125,7 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClCompile Include="BildSchneiden.cpp" />
-    <ClCompile Include="Projection.cpp" />
+    <ClCompile Include="Source.cpp" />
     <ClCompile Include="Projektion.cpp" />
     <ClCompile Include="Quelle1.cpp" />
     <ClCompile Include="Quelle2.cpp" />

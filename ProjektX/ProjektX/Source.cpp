@@ -16,13 +16,13 @@ int main(int argc, char *argv[])
 {
 
 		Mat image = imread("adam1.png", 0);
-		double alpha = 120;
+		double alpha = 110;
 		double beta = 90;
 		double gamma = 90; 
 		double dx = 90; 
 		double dy = 90; 
 		double dz = 90; 
-		double rand = 0.5;
+		double rand = 3;
 
 		Projektion Proj ;
 		BildSchneiden Cut;

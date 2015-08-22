@@ -21,14 +21,14 @@
     <ClCompile Include="Quelle2.cpp">
       <Filter>Headerdateien</Filter>
     </ClCompile>
-    <ClCompile Include="Projection.cpp">
-      <Filter>Headerdateien</Filter>
-    </ClCompile>
     <ClCompile Include="BildSchneiden.cpp">
       <Filter>Headerdateien</Filter>
     </ClCompile>
     <ClCompile Include="Projektion.cpp">
       <Filter>Quelldateien</Filter>
+    </ClCompile>
+    <ClCompile Include="Source.cpp">
+      <Filter>Headerdateien</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
