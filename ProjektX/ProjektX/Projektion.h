@@ -4,6 +4,7 @@
 #include <opencv2/core/core.hpp>
 #include <opencv2/highgui/highgui.hpp>
 #include <iostream>
+#include <iomanip>
 #include <cmath>
 
 
@@ -29,7 +30,7 @@ public:
 	dz: translation along the z axis (distance to the image)
 	f: focal distance (distance between camera and image, a smaller number exaggerates the effect)
 	*/
-	Mat change(Mat image, double alpha = 90, double beta = 90, double gamma = 90, double dx = 300, double dy = 300)
+	Mat change(Mat image, double alpha = 90, double beta = 90, double gamma = 90, double dx = 0, double dy = 0)
 	{
 
 			//dy = -(alpha-90)/30*(double)image.cols/2;
@@ -94,30 +95,56 @@ public:
 			Mat trans = A2 * (T * (R * A1));
 
 			//Obenlinks
-			Mat OL = (Mat_<double>(1, 3) << 0, 0,  0);
+			Mat OL = (Mat_<double>(3, 1) << 0, 0,  0);
 			//ObenRechts
-			Mat OR = (Mat_<double>(1, 3) << image.size().width, 0, 0);
+			Mat OR = (Mat_<double>(3, 1) << image.size().width, 0, 0);
 			//UntenLinks
-			Mat UL = (Mat_<double>(1, 3) << 0, image.size().height, 0);
+			Mat UL = (Mat_<double>(3, 1) << 0, image.size().height, 0);
 			//UntenRechts
-			Mat UR = (Mat_<double>(1, 3) << image.size().width, image.size().height, 0);
+			Mat UR = (Mat_<double>(3, 1) << image.size().width, image.size().height, 0);
 
-			Mat OLtrans = OL*trans;
-			Mat ULtrans = UL*trans;
-			Mat ORtrans = OR*trans;
-			Mat URtrans = UR*trans;
-		cv:InputArray EckpunkteX = (OL.at<double>(0, 0), OR.at<double>(0, 0), UL.at<double>(0, 0), UR.at<double>(0, 0));
-			double Eckpunktey[] = {	OL.at<double>(0, 1), OR.at<double>(0, 1),UL.at<double>(0, 1), UR.at<double>(0, 1)};
+			OL = trans*OL;
+			UL = trans*UL;
+			OR = trans*OR;
+			UR = trans*UR;
+			double EckpunkteX[4] = { OL.at<double>(0, 0), OR.at<double>(0, 0), UL.at<double>(0, 0), UR.at<double>(0, 0) };
+			double EckpunkteY[4] = { OL.at<double>(1, 0), OR.at<double>(1, 0), UL.at<double>(1, 0), UR.at<double>(1, 0) };
 			
 			double x;
+			double h1;
+			double h2;
 			double y; 
-		//	minMaxLoc( EckpunkteX, x);
+			// größtes X finden
+			if (EckpunkteX[0] > EckpunkteX[1])
+					h1 = EckpunkteX[0];
+			else	h1 = EckpunkteX[1];
+
+			if (EckpunkteX[2] > EckpunkteX[3])
+					h2 = EckpunkteX[2];
+			else	h2 = EckpunkteX[3];
+			if (h1 > h2)
+					x = h1;
+			else	x = h2;
 			
+			// größtes Y finden
+			if (EckpunkteY[0] > EckpunkteY[1])
+					h1 = EckpunkteY[0];
+			else	h1 = EckpunkteY[1];
+
+			if (EckpunkteY[2] > EckpunkteY[3])
+					h2 = EckpunkteY[2];
+			else	h2 = EckpunkteY[3];
+			if (h1 > h2)
+					y = h1;
+			else	y = h2;
+			;
+			
+			std::cout << std::setfill('|');
+			std::cout << std::internal << std::showpos;
+			std::cout << EckpunkteX[0] << EckpunkteX[1] << EckpunkteX[2] << EckpunkteX[3] <<y << std::endl;
 
 
-
-
-			Size sze = Size(w*1.5,h*1.5);
+			Size sze = Size((w+x/1000),h+y / 1000);
 			
 
 			// Apply matrix transformation
