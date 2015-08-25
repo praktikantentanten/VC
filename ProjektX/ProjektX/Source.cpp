@@ -18,7 +18,7 @@ int main(int argc, char *argv[])
 		Mat image = imread("adam1.png", 0);
 		double alpha = 90;
 		double beta = 90;
-		double gamma = 270; 
+		double gamma = 180; 
 		double dx = 90; 
 		double dy = 90; 
 		double dz = 90; 
