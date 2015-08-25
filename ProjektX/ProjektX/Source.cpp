@@ -16,13 +16,13 @@ int main(int argc, char *argv[])
 {
 
 		Mat image = imread("adam1.png", 0);
-		double alpha = 110;
+		double alpha = 90;
 		double beta = 90;
-		double gamma = 90; 
+		double gamma = 270; 
 		double dx = 90; 
 		double dy = 90; 
 		double dz = 90; 
-		double rand = 3;
+		double rand = 0;
 
 		Projektion Proj ;
 		BildSchneiden Cut;
@@ -41,18 +41,22 @@ int main(int argc, char *argv[])
 				string dzs = to_string((int)dz);
 
 				string s;
-				s = "adam " + a + " , " + b + " , " + c + " _ " + dxs + " , " + dys  + " , " + dzs + ".png";
+				s = "adam " + a + " , " + b + " , " + c + ".png";// +" _ " + dxs + " , " + dys + " , " + dzs ;
 				//bild erzeugen
-				imageOut = Proj.change(image, rand,alpha,beta,gamma);
+				imageOut = Proj.change(image, alpha,beta,gamma);
+
+
+
 				//bild speichern
 				imwrite(s, imageOut);
 				
+				std::cout << s << std::endl;
+				namedWindow("image");
+				imshow("image", imageOut);
+				waitKey(0);
 			
-	/*
-		namedWindow("image");
-		imshow("image", imageOut);
-		waitKey(0);
-		
+
+	/*	
 
 
 

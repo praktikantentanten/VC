@@ -4,6 +4,7 @@
 #include <opencv2/core/core.hpp>
 #include <opencv2/highgui/highgui.hpp>
 #include <iostream>
+#include <cmath>
 
 
 using namespace cv;
@@ -13,7 +14,9 @@ class Projektion
 public:
 	Projektion();
 	~Projektion();
-
+	template <typename T> int sgn(T val) {
+		return (T(0) < val) - (val < T(0));
+	}
 
 	/*
 	input: the image that you want rotated.
@@ -26,13 +29,17 @@ public:
 	dz: translation along the z axis (distance to the image)
 	f: focal distance (distance between camera and image, a smaller number exaggerates the effect)
 	*/
-	Mat change(Mat image,double rand =0.5, double alpha = 90, double beta = 90, double gamma = 90, double dx = 300, double dy = 300, double dz = 90)
+	Mat change(Mat image, double alpha = 90, double beta = 90, double gamma = 90, double dx = 300, double dy = 300)
 	{
-		dy = (alpha+beta);
-		dx = (alpha + beta) ;
+
+			//dy = -(alpha-90)/30*(double)image.cols/2;
+		    //dx = -(alpha-90)/30*(double)image.rows/2;
+			double dz = 300;//sqrt((double)image.cols*(double)image.cols+ (double)image.rows*(double)image.rows);
 			double f = dz;
 			Mat imageOut = image;
 
+
+			// Winkelberechnung 
 			alpha = (alpha - 90.)*CV_PI / 180.;
 			beta = (beta - 90.)*CV_PI / 180.;
 			gamma = (gamma - 90.)*CV_PI / 180.;
@@ -86,22 +93,31 @@ public:
 			// Final transformation matrix
 			Mat trans = A2 * (T * (R * A1));
 
-			//                                                  
-			Mat tr = (Mat_<double>(1, 3) <<	f, 0, 0)*trans;
+			//Obenlinks
+			Mat OL = (Mat_<double>(1, 3) << 0, 0,  0);
+			//ObenRechts
+			Mat OR = (Mat_<double>(1, 3) << image.size().width, 0, 0);
+			//UntenLinks
+			Mat UL = (Mat_<double>(1, 3) << 0, image.size().height, 0);
+			//UntenRechts
+			Mat UR = (Mat_<double>(1, 3) << image.size().width, image.size().height, 0);
 
+			Mat OLtrans = OL*trans;
+			Mat ULtrans = UL*trans;
+			Mat ORtrans = OR*trans;
+			Mat URtrans = UR*trans;
+		cv:InputArray EckpunkteX = (OL.at<double>(0, 0), OR.at<double>(0, 0), UL.at<double>(0, 0), UR.at<double>(0, 0));
+			double Eckpunktey[] = {	OL.at<double>(0, 1), OR.at<double>(0, 1),UL.at<double>(0, 1), UR.at<double>(0, 1)};
+			
 			double x;
-			double y;
-			if ((double)image.size().height > (double)image.size().width)
-			{
-				x = (double)image.size().height*rand;
-				y = (double)image.size().height*rand;
-			}
-			else
-			{
-				x = (double)image.size().width*rand;
-				y = (double)image.size().width*rand;
-			}
-			Size sze = Size(x, y);
+			double y; 
+			minMaxLoc( EckpunkteX, x);
+			
+
+
+
+
+			Size sze = Size(sgn(x)*x,sgn(y)*y);
 			
 
 			// Apply matrix transformation
@@ -111,4 +127,20 @@ public:
 	};
 	
 };
+/*
 
+if (alpha != 0)
+{
+	h = h + h *(sgn(alpha)*alpha / 10);
+	w = w - w *(sgn(alpha)*alpha / 10);
+}
+else if (beta != 0)
+{
+	h = h - h *(sgn(beta)*beta / 10);
+	w = w + w *(sgn(beta)*beta / 10);
+}
+else if (gamma != 0)
+{
+	h = h + h*(sgn(gamma)*gamma / 10);
+	w = w + w*(sgn(gamma)*gamma / 10);
+};*/
