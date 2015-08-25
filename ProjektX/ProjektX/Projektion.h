@@ -111,13 +111,13 @@ public:
 			
 			double x;
 			double y; 
-			minMaxLoc( EckpunkteX, x);
+		//	minMaxLoc( EckpunkteX, x);
 			
 
 
 
 
-			Size sze = Size(sgn(x)*x,sgn(y)*y);
+			Size sze = Size(w*1.5,h*1.5);
 			
 
 			// Apply matrix transformation
