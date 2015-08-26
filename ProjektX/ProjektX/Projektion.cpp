@@ -14,9 +14,6 @@ Projektion::Projektion()
 Projektion::~Projektion()
 {
 }
-template <typename T> int sgn(T val) {
-	return (T(0) < val) - (val < T(0));
-}
 
 /*
 input: the image that you want rotated.
@@ -34,6 +31,8 @@ Mat Projektion::bildRotieren(Mat image, double alpha = 90, double beta = 90, dou
 	bildDrehen( image,  trans,  sze);
 
 };
+
+
 /*
 input: the image that you want rotated.
 output: the Mat object to put the resulting file in.
