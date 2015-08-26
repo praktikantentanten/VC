@@ -124,17 +124,15 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
-    <ClCompile Include="BildSchneiden.cpp" />
     <ClCompile Include="Source.cpp" />
     <ClCompile Include="Projektion.cpp" />
     <ClCompile Include="Quelle1.cpp" />
-    <ClCompile Include="Quelle2.cpp" />
+    <ClCompile Include="BerechnungKeypoints.cpp" />
   </ItemGroup>
   <ItemGroup>
     <None Include="ClassDiagram.cd" />
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="BildSchneiden.h" />
     <ClInclude Include="Projektion.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />

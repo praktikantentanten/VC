@@ -24,18 +24,30 @@ output: the Mat object to put the resulting file in.
 alpha: the rotation around the x axis
 beta: the rotation around the y axis
 gamma: the rotation around the z axis (basically a 2D rotation)
-dx: translation along the x axis
-dy: translation along the y axis
-dz: translation along the z axis (distance to the image)
-f: focal distance (distance between camera and image, a smaller number exaggerates the effect)
+*/
+Mat Projektion::bildRotieren(Mat image, double alpha = 90, double beta = 90, double gamma = 90)
+{
+	//Hilfsfunktionen für Berechnung der Matrix und der Bildgröße
+	Mat trans = matrixErrechnen(image, alpha, beta, gamma);
+	Size sze=sizeBerechnen(trans,image);
+
+	bildDrehen( image,  trans,  sze);
+
+};
+/*
+input: the image that you want rotated.
+output: the Mat object to put the resulting file in.
+alpha: the rotation around the x axis 
+beta: the rotation around the y axis
+gamma: the rotation around the z axis (Drehung)
 */
 Mat Projektion::matrixErrechnen(Mat image, double alpha = 90, double beta = 90, double gamma = 90)
 {
-
+	// Translationsvariablen errechnen
 	double dx = 0, double dy = 0;
-	double dz = sqrt((double)image.cols*(double)image.cols + (double)image.rows*(double)image.rows);
-	double f = dz;
-	Mat imageOut = image;
+	double dz = sqrt((double)image.cols*(double)image.cols + (double)image.rows*(double)image.rows); //Bilddiagonale
+	double f = dz; // Entfernung zum Bild == Distanz von Kamera zu Bild
+	
 
 
 	// Winkelberechnung 
@@ -93,26 +105,27 @@ Mat Projektion::matrixErrechnen(Mat image, double alpha = 90, double beta = 90, 
 	Mat trans = A2 * (T * (R * A1));
 };
 
-
-Size Projektion::punkteBerechnen(Mat trans, Mat image) {
+//Berechnung der Größe des neuen Bildes
+Size Projektion::sizeBerechnen(Mat trans, Mat image) {
 	//Obenlinks
-	Mat OL = (Mat_<double>(3, 1) << 0, 0, 1);
-	//ObenRechts
-	Mat OR = (Mat_<double>(3, 1) << image.size().width - 1, 0, 1);
+	Mat oL = (Mat_<double>(3, 1) << 0, 0, 1);
 	//UntenLinks
-	Mat UL = (Mat_<double>(3, 1) << 0, image.size().height - 1, 1);
+	Mat uL = (Mat_<double>(3, 1) << 0, image.size().height - 1, 1);
+	//ObenRechts
+	Mat oR = (Mat_<double>(3, 1) << image.size().width - 1, 0, 1);
 	//UntenRechts
-	Mat UR = (Mat_<double>(3, 1) << image.size().width - 1, image.size().height - 1, 1);
+	Mat uR = (Mat_<double>(3, 1) << image.size().width - 1, image.size().height - 1, 1);
 
-	OL = trans*OL;
-	UL = trans*UL;
-	OR = trans*OR;
-	UR = trans*UR;
-	double EckpunkteX[4] = { OL.at<double>(0, 0) / OL.at<double>(2, 0), OR.at<double>(0, 0) / OR.at<double>(2, 0), UL.at<double>(0, 0) / UL.at<double>(2, 0), UR.at<double>(0, 0) / UR.at<double>(2, 0) };
-	double EckpunkteY[4] = { OL.at<double>(1, 0) / OL.at<double>(2, 0), OR.at<double>(1, 0) / OR.at<double>(2, 0), UL.at<double>(1, 0) / UL.at<double>(2, 0), UR.at<double>(1, 0) / UR.at<double>(2, 0) };
-	std::cout << "z:" << OL.at<double>(2, 0) << " " << OR.at<double>(2, 0) << " " << UL.at<double>(2, 0) << " " << UR.at<double>(2, 0) << " " << std::endl;
-
-
+	// Verschiebung der Eckpunkte durch Matrix berechnen.
+	oL = trans*oL;
+	uL = trans*uL;
+	oR = trans*oR;
+	uR = trans*uR;
+	//Eckpunkte, aufgeteilt in Koordinatenachsen, durch z-Wert geteilt und gespeichert
+	double EckpunkteX[4] = { oL.at<double>(0, 0) / oL.at<double>(2, 0), oR.at<double>(0, 0) / oR.at<double>(2, 0), uL.at<double>(0, 0) / uL.at<double>(2, 0), uR.at<double>(0, 0) / uR.at<double>(2, 0) };
+	double EckpunkteY[4] = { oL.at<double>(1, 0) / oL.at<double>(2, 0), oR.at<double>(1, 0) / oR.at<double>(2, 0), uL.at<double>(1, 0) / uL.at<double>(2, 0), uR.at<double>(1, 0) / uR.at<double>(2, 0) };
+	std::cout << "z:" << oL.at<double>(2, 0) << " " << oR.at<double>(2, 0) << " " << uL.at<double>(2, 0) << " " << uR.at<double>(2, 0) << " " << std::endl;
+	
 	double xmax, double ymax, double xmin, double ymin;
 
 	// größtes X finden
@@ -140,13 +153,15 @@ Size Projektion::punkteBerechnen(Mat trans, Mat image) {
 
 	//Errechnen der Bildgröße des zu erzeugenden Bilds
 	Size sze = Size((xmax - xmin + 1), ymax - ymin + 1);
+
 	return sze;
 };
 		
 
-
-Mat Projektion::bildDrehen(Mat image, Mat imageOut,Mat trans,Size sze)
+//Anwenden von warpPerspective mit errechneter Matrix
+Mat Projektion::bildDrehen(Mat image,Mat trans,Size sze)
 {
+	Mat imageOut = image;
 	// Apply matrix transformation
 	warpPerspective(image, imageOut, trans, sze, INTER_LANCZOS4);
 	return imageOut;

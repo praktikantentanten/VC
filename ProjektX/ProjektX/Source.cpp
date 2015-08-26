@@ -19,10 +19,7 @@ int main(int argc, char *argv[])
 		double alpha = 90;
 		double beta = 90;
 		double gamma = 180; 
-		double dx = 90; 
-		double dy = 90; 
-		double dz = 90; 
-		double rand = 0;
+
 
 		Projektion Proj ;
 		BildSchneiden Cut;
@@ -36,38 +33,21 @@ int main(int argc, char *argv[])
 				string a = to_string((int)alpha - 90);
 				string b = to_string((int)beta - 90);
 				string c = to_string((int)gamma - 90);
-				string dxs = to_string((int)dx);
-				string dys = to_string((int)dy);
-				string dzs = to_string((int)dz);
-
 				string s;
-				s = "adam " + a + " , " + b + " , " + c + ".png";// +" _ " + dxs + " , " + dys + " , " + dzs ;
+				s = "adam " + a + " , " + b + " , " + c + ".png";
+
 				//bild erzeugen
-				imageOut = Proj.change(image, alpha,beta,gamma);
-
-
-
+				imageOut = Proj.bildRotieren(image, alpha,beta,gamma);
+				
 				//bild speichern
 				imwrite(s, imageOut);
 				
-				std::cout << s << std::endl;
+				//extra Anzeige erzeugen und Bild darstellen
 				namedWindow("image");
 				imshow("image", imageOut);
 				waitKey(0);
 			
 
-	/*	
-
-
-
-		
-		
-		IplImage imageA = imread("adam1.png");
-		CvRect imageB ;
-		BildSchneiden cImage;
-		cImage.cropImage(&imageA, imageB);
-
-		*/
 
 }
 

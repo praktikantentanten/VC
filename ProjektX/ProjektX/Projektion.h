@@ -15,10 +15,10 @@ class Projektion
 public:
 	Projektion();
 	~Projektion();
-
+	Mat bildRotieren( Mat image, double alpha, double beta, double gamma);
 	Mat matrixErrechnen(Mat image, double alpha, double beta, double gamma);
 
-	Size punkteBerechnen(Mat trans, Mat image);
+	Size sizeBerechnen(Mat trans, Mat image);
 
-	Mat bildDrehen(Mat image, Mat imageOut, Mat trans, Size sze);
+	Mat bildDrehen(Mat image, Mat trans, Size sze);
 };
