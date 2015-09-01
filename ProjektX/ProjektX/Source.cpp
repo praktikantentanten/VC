@@ -15,12 +15,22 @@ int main(int argc, char *argv[])
 {
 		//Variablen für Test erzeugen
 		Mat image = imread("adam1.png", 0);
-		double alpha = 70;
-		double beta = 90;
+		double alpha = 90;
+		double beta = 70;
 		double gamma = 90; 
 		Projektion Proj ;
 		Mat imageOut = image;
-		
+		/*
+		adam 0 , 20 , 0 _ 22, 31
+		adam 0 , -20 , 0 _ -60, 31
+		adam 5 , 0 , 0 _ 8, 5
+		adam -5 , 0 , 0 _ 8, -7
+		adam 10 , 0 , 0 _ 15, 8
+		adam -10 , 0 , 0 _ 15, -15
+		adam 20 , 0 , 0 _ 30, 9
+		adam -20 , 0 , 0 _ 30, -37
+
+			*/
 		//----------------------------------------------
 		//bildnamen aus Parametern erstellen
 		string a = to_string((int)alpha - 90);

@@ -54,9 +54,8 @@ Mat Projektion::matrixErrechnen(Mat image, double alpha = 90, double beta = 90, 
 	beta = (beta - 90.)*CV_PI / 180.;
 	gamma = (gamma - 90.)*CV_PI / 180.;
 
-	dx = 30; //30 für alpha(20) | 73 für 45°gamma-rotation
-	dy = 10; //10 für alpha(20) | 145 für 45°gamma-rotation
-	std::cout <<"dx:"<<dx <<" dy:"<<dy <<" dz:" << dz<< std::endl;
+	dx = -60;
+	dy = 31;
 	// get width and height for ease of use in matrices
 	double w = (double)image.cols;
 	double h = (double)image.rows;
@@ -118,17 +117,22 @@ Size Projektion::sizeBerechnen(Mat trans, Mat image) {
 	Mat oR = (Mat_<double>(3, 1) << image.size().width - 1, 0, 1);
 	//UntenRechts
 	Mat uR = (Mat_<double>(3, 1) << image.size().width - 1, image.size().height - 1, 1);
+	//Mittelpunkt
+	Mat mittelPunkt=(Mat_<double>(3, 1) << image.size().width /2, image.size().height /2, 1);
 
 	// Verschiebung der Eckpunkte durch Matrix berechnen.
 	oL = trans*oL;
 	uL = trans*uL;
 	oR = trans*oR;
 	uR = trans*uR;
+	mittelPunkt = trans*mittelPunkt;
+
 	//Eckpunkte, aufgeteilt in Koordinatenachsen, durch z-Wert geteilt und gespeichert
 	double EckpunkteX[4] = { oL.at<double>(0, 0) / oL.at<double>(2, 0), oR.at<double>(0, 0) / oR.at<double>(2, 0), uL.at<double>(0, 0) / uL.at<double>(2, 0), uR.at<double>(0, 0) / uR.at<double>(2, 0) };
 	double EckpunkteY[4] = { oL.at<double>(1, 0) / oL.at<double>(2, 0), oR.at<double>(1, 0) / oR.at<double>(2, 0), uL.at<double>(1, 0) / uL.at<double>(2, 0), uR.at<double>(1, 0) / uR.at<double>(2, 0) };
 	std::cout << "z:" << oL.at<double>(2, 0) << " " << oR.at<double>(2, 0) << " " << uL.at<double>(2, 0) << " " << uR.at<double>(2, 0) << " " << std::endl;
-	
+	std::cout << "dx:" << mittelPunkt.at<double>(0, 0) / mittelPunkt.at<double>(2, 0) <<	 " dy:" << mittelPunkt.at<double>(1, 0)/ mittelPunkt.at<double>(2, 0) <<  std::endl;
+
 	double xmax,  ymax, xmin, ymin=0;
 
 	// größtes X finden
@@ -154,6 +158,7 @@ Size Projektion::sizeBerechnen(Mat trans, Mat image) {
 	std::cout << std::internal << std::showpos;
 	std::cout << EckpunkteX[0] << " " << EckpunkteX[1] << " " << EckpunkteX[2] << " " << EckpunkteX[3] << " xmax:" << xmax << " xmin:" << xmin << std::endl;
 	std::cout << EckpunkteY[0] << " " << EckpunkteY[1] << " " << EckpunkteY[2] << " " << EckpunkteY[3] << " ymax:" << ymax << " ymin:" << ymin << std::endl;
+	
 
 	//Errechnen der Bildgröße des zu erzeugenden Bilds
 	Size sze = Size((xmax - xmin + 1), ymax - ymin + 1);
