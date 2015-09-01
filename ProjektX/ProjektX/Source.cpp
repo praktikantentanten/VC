@@ -2,7 +2,6 @@
 #include <opencv2/core/core.hpp>
 #include <opencv2/highgui/highgui.hpp>
 #include <iostream>
-#include "BildSchneiden.h"
 #include "Projektion.h"
 
 
@@ -16,11 +15,10 @@ int main(int argc, char *argv[])
 {
 		//Variablen für Test erzeugen
 		Mat image = imread("adam1.png", 0);
-		double alpha = 90;
+		double alpha = 70;
 		double beta = 90;
-		double gamma = 180; 
+		double gamma = 90; 
 		Projektion Proj ;
-		BildSchneiden Cut;
 		Mat imageOut = image;
 		
 		//----------------------------------------------

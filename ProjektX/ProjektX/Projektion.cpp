@@ -28,7 +28,7 @@ Mat Projektion::bildRotieren(Mat image, double alpha = 90, double beta = 90, dou
 	Mat trans = matrixErrechnen(image, alpha, beta, gamma);
 	Size sze=sizeBerechnen(trans,image);
 
-	bildDrehen( image,  trans,  sze);
+	return bildDrehen( image,  trans,  sze);
 
 };
 
@@ -43,7 +43,7 @@ gamma: the rotation around the z axis (Drehung)
 Mat Projektion::matrixErrechnen(Mat image, double alpha = 90, double beta = 90, double gamma = 90)
 {
 	// Translationsvariablen errechnen
-	double dx = 0, double dy = 0;
+	double dx = 0; double dy = 0;
 	double dz = sqrt((double)image.cols*(double)image.cols + (double)image.rows*(double)image.rows); //Bilddiagonale
 	double f = dz; // Entfernung zum Bild == Distanz von Kamera zu Bild
 	
@@ -54,6 +54,9 @@ Mat Projektion::matrixErrechnen(Mat image, double alpha = 90, double beta = 90, 
 	beta = (beta - 90.)*CV_PI / 180.;
 	gamma = (gamma - 90.)*CV_PI / 180.;
 
+	dx = 30; //30 für alpha(20) | 73 für 45°gamma-rotation
+	dy = 10; //10 für alpha(20) | 145 für 45°gamma-rotation
+	std::cout <<"dx:"<<dx <<" dy:"<<dy <<" dz:" << dz<< std::endl;
 	// get width and height for ease of use in matrices
 	double w = (double)image.cols;
 	double h = (double)image.rows;
@@ -102,9 +105,10 @@ Mat Projektion::matrixErrechnen(Mat image, double alpha = 90, double beta = 90, 
 
 	// Final transformation matrix
 	Mat trans = A2 * (T * (R * A1));
+	return trans;
 };
 
-//Berechnung der Größe des neuen Bildes
+//Berechnung der Größe des neuen Bildes (funktioniert)
 Size Projektion::sizeBerechnen(Mat trans, Mat image) {
 	//Obenlinks
 	Mat oL = (Mat_<double>(3, 1) << 0, 0, 1);
@@ -125,7 +129,7 @@ Size Projektion::sizeBerechnen(Mat trans, Mat image) {
 	double EckpunkteY[4] = { oL.at<double>(1, 0) / oL.at<double>(2, 0), oR.at<double>(1, 0) / oR.at<double>(2, 0), uL.at<double>(1, 0) / uL.at<double>(2, 0), uR.at<double>(1, 0) / uR.at<double>(2, 0) };
 	std::cout << "z:" << oL.at<double>(2, 0) << " " << oR.at<double>(2, 0) << " " << uL.at<double>(2, 0) << " " << uR.at<double>(2, 0) << " " << std::endl;
 	
-	double xmax, double ymax, double xmin, double ymin;
+	double xmax,  ymax, xmin, ymin=0;
 
 	// größtes X finden
 	for (int i = 0; i < 4; i++)
@@ -133,22 +137,23 @@ Size Projektion::sizeBerechnen(Mat trans, Mat image) {
 
 	// größtes Y finden
 	for (int i = 0; i < 4; i++)
-		ymax = max(EckpunkteX[i], ymax);
-
+		ymax = max(EckpunkteY[i], ymax);
+	xmin = xmax;
 	// kleinstes X finden
 	for (int i = 0; i < 4; i++)
-		xmin = max(EckpunkteX[i], xmin);
+		xmin = min(EckpunkteX[i], xmin);
 	// kleinstes Y finden
+	ymin = ymax;
 	for (int i = 0; i < 4; i++)
-		ymin = max(EckpunkteX[i], ymin);
+		ymin = min(EckpunkteY[i], ymin);
 
 
 
 	//Ausgabe der einzelnen X,Y-Werte zur Kontrolle
 	std::cout << std::setfill('|');
 	std::cout << std::internal << std::showpos;
-	std::cout << EckpunkteX[0] << " " << EckpunkteX[1] << " " << EckpunkteX[2] << " " << EckpunkteX[3] << " " << xmax << std::endl;
-	std::cout << EckpunkteY[0] << " " << EckpunkteY[1] << " " << EckpunkteY[2] << " " << EckpunkteY[3] << " " << ymax << std::endl;
+	std::cout << EckpunkteX[0] << " " << EckpunkteX[1] << " " << EckpunkteX[2] << " " << EckpunkteX[3] << " xmax:" << xmax << " xmin:" << xmin << std::endl;
+	std::cout << EckpunkteY[0] << " " << EckpunkteY[1] << " " << EckpunkteY[2] << " " << EckpunkteY[3] << " ymax:" << ymax << " ymin:" << ymin << std::endl;
 
 	//Errechnen der Bildgröße des zu erzeugenden Bilds
 	Size sze = Size((xmax - xmin + 1), ymax - ymin + 1);
