@@ -1,21 +1,20 @@
-﻿Der Buildvorgang wurde am 01.09.2015 12:37:13 gestartet.
-     1>Projekt "C:\Users\mens\Source\Repos\VC\ProjektX\ProjektX\ProjektX.vcxproj" auf Knoten "2", Build Ziel(e).
+﻿Der Buildvorgang wurde am 08.09.2015 11:30:15 gestartet.
+     1>Projekt "C:\Users\Dandan\Documents\GitHubVisualStudio\VC\ProjektX\ProjektX\ProjektX.vcxproj" auf Knoten "2", Build Ziel(e).
      1>ClCompile:
-         C:\Program Files (x86)\Microsoft Visual Studio 14.0\VC\bin\x86_amd64\CL.exe /c /IC:\Users\Public\VC\Praktikum\opencv\build\x64\vc12\..\..\include /Zi /nologo /W3 /WX- /sdl /O2 /Oi /GL /D _MBCS /Gm- /EHsc /MD /GS /Gy /fp:precise /Zc:wchar_t /Zc:forScope /Zc:inline /Fo"x64\Release\\" /Fd"x64\Release\vc140.pdb" /Gd /TP /errorReport:prompt Projektion.cpp
-         Projektion.cpp
-     1>Projektion.cpp(164): warning C4244: "Argument": Konvertierung von "double" in "int", möglicher Datenverlust
+         D:\Programme\Microsoft Visual Studio 14.0\VC\bin\x86_amd64\CL.exe /c /ID:\Programme\OpenCV\build\x64\vc12\..\..\include /Zi /nologo /W3 /WX- /sdl /O2 /Oi /GL /D _MBCS /Gm- /EHsc /MD /GS /Gy /fp:precise /Zc:wchar_t /Zc:forScope /Zc:inline /Fo"x64\Release\\" /Fd"x64\Release\vc140.pdb" /Gd /TP /errorReport:prompt Source.cpp
+         Source.cpp
        Link:
-         C:\Program Files (x86)\Microsoft Visual Studio 14.0\VC\bin\x86_amd64\link.exe /ERRORREPORT:PROMPT /OUT:"C:\Users\mens\Source\Repos\VC\ProjektX\x64\Release\ProjektX.exe" /NOLOGO /LIBPATH:C:\Users\Public\VC\Praktikum\opencv\build\x64\vc12\lib opencv_ts300.lib opencv_world300.lib kernel32.lib user32.lib gdi32.lib winspool.lib comdlg32.lib advapi32.lib shell32.lib ole32.lib oleaut32.lib uuid.lib odbc32.lib odbccp32.lib /MANIFEST /MANIFESTUAC:"level='asInvoker' uiAccess='false'" /manifest:embed /Debug /PDB:"C:\Users\mens\Source\Repos\VC\ProjektX\x64\Release\ProjektX.pdb" /OPT:REF /OPT:ICF /LTCG:incremental /TLBID:1 /DYNAMICBASE /NXCOMPAT /IMPLIB:"C:\Users\mens\Source\Repos\VC\ProjektX\x64\Release\ProjektX.lib" /MACHINE:X64 x64\Release\Source.obj
+         D:\Programme\Microsoft Visual Studio 14.0\VC\bin\x86_amd64\link.exe /ERRORREPORT:PROMPT /OUT:"C:\Users\Dandan\Documents\GitHubVisualStudio\VC\ProjektX\x64\Release\ProjektX.exe" /NOLOGO /LIBPATH:D:\Programme\OpenCV\build\x64\vc12\lib opencv_ts300.lib opencv_world300.lib kernel32.lib user32.lib gdi32.lib winspool.lib comdlg32.lib advapi32.lib shell32.lib ole32.lib oleaut32.lib uuid.lib odbc32.lib odbccp32.lib /MANIFEST /MANIFESTUAC:"level='asInvoker' uiAccess='false'" /manifest:embed /Debug /PDB:"C:\Users\Dandan\Documents\GitHubVisualStudio\VC\ProjektX\x64\Release\ProjektX.pdb" /OPT:REF /OPT:ICF /LTCG:incremental /TLBID:1 /DYNAMICBASE /NXCOMPAT /IMPLIB:"C:\Users\Dandan\Documents\GitHubVisualStudio\VC\ProjektX\x64\Release\ProjektX.lib" /MACHINE:X64 x64\Release\Source.obj
          x64\Release\Projektion.obj
          x64\Release\BerechnungKeypoints.obj
          Code wird generiert.
-         1 of 224 functions ( 0.4%) were compiled, the rest were copied from previous compilation.
+         1 of 225 functions ( 0.4%) were compiled, the rest were copied from previous compilation.
            0 functions were new in current compilation
-           1 functions had inline decision re-evaluated but remain unchanged
+           0 functions had inline decision re-evaluated but remain unchanged
          Codegenerierung ist abgeschlossen.
-         ProjektX.vcxproj -> C:\Users\mens\Source\Repos\VC\ProjektX\x64\Release\ProjektX.exe
-     1>Die Erstellung von Projekt "C:\Users\mens\Source\Repos\VC\ProjektX\ProjektX\ProjektX.vcxproj" ist abgeschlossen (Build Ziel(e)).
+         ProjektX.vcxproj -> C:\Users\Dandan\Documents\GitHubVisualStudio\VC\ProjektX\x64\Release\ProjektX.exe
+     1>Die Erstellung von Projekt "C:\Users\Dandan\Documents\GitHubVisualStudio\VC\ProjektX\ProjektX\ProjektX.vcxproj" ist abgeschlossen (Build Ziel(e)).
 
 Der Buildvorgang wurde erfolgreich ausgeführt.
 
-Verstrichene Zeit 00:00:02.75
+Verstrichene Zeit 00:00:01.56

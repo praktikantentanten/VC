@@ -18,10 +18,10 @@
     <ClCompile Include="Projektion.cpp">
       <Filter>Quelldateien</Filter>
     </ClCompile>
-    <ClCompile Include="Source.cpp">
-      <Filter>Headerdateien</Filter>
-    </ClCompile>
     <ClCompile Include="BerechnungKeypoints.cpp">
+      <Filter>Quelldateien</Filter>
+    </ClCompile>
+    <ClCompile Include="Source.cpp">
       <Filter>Quelldateien</Filter>
     </ClCompile>
   </ItemGroup>

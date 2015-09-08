@@ -15,9 +15,9 @@ int main(int argc, char *argv[])
 {
 		//Variablen für Test erzeugen
 		Mat image = imread("adam1.png", 0);
-		double alpha = 90;
+		double alpha = 120;
 		double beta = 70;
-		double gamma = 90; 
+		double gamma =135; 
 		Projektion Proj ;
 		Mat imageOut = image;
 		/*

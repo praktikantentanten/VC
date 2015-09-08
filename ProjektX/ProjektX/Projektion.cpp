@@ -15,6 +15,9 @@ Projektion::~Projektion()
 {
 }
 
+// Maximale und minimale X und Y Werte der Eckpunkte des Bildes
+double xmax, ymax, xmin, ymin;
+
 /*
 input: the image that you want rotated.
 output: the Mat object to put the resulting file in.
@@ -26,9 +29,10 @@ Mat Projektion::bildRotieren(Mat image, double alpha = 90, double beta = 90, dou
 {
 	//Hilfsfunktionen für Berechnung der Matrix und der Bildgröße
 	Mat trans = matrixErrechnen(image, alpha, beta, gamma);
-	Size sze=sizeBerechnen(trans,image);
+	Size sze = sizeBerechnen(trans,image);
+	Mat ttrans = translation(image, trans, sze);
 
-	return bildDrehen( image,  trans,  sze);
+	return bildDrehen( image, ttrans, sze);
 
 };
 
@@ -133,8 +137,6 @@ Size Projektion::sizeBerechnen(Mat trans, Mat image) {
 	std::cout << "z:" << oL.at<double>(2, 0) << " " << oR.at<double>(2, 0) << " " << uL.at<double>(2, 0) << " " << uR.at<double>(2, 0) << " " << std::endl;
 	std::cout << "dx:" << mittelPunkt.at<double>(0, 0) / mittelPunkt.at<double>(2, 0) <<	 " dy:" << mittelPunkt.at<double>(1, 0)/ mittelPunkt.at<double>(2, 0) <<  std::endl;
 
-	double xmax,  ymax, xmin, ymin=0;
-
 	// größtes X finden
 	for (int i = 0; i < 4; i++)
 		xmax = max(EckpunkteX[i], xmax);
@@ -165,15 +167,30 @@ Size Projektion::sizeBerechnen(Mat trans, Mat image) {
 
 	return sze;
 };
+
+	//Translation des Bildes
+Mat Projektion::translation(Mat image, Mat trans, Size sze)
+{
+	
+	//Translationmatrix (zurechtrücken des Bildes)
+	Mat tlt = (Mat_<double>(3, 3) <<
+		1, 0, (0 - xmin),
+		0, 1, (0 - ymin),
+		0, 0, 1);
+
+	Mat ttrans = tlt*trans;
+
+	return ttrans;
+};
 		
 
 //Anwenden von warpPerspective mit errechneter Matrix
-Mat Projektion::bildDrehen(Mat image,Mat trans,Size sze)
+Mat Projektion::bildDrehen(Mat image,  Mat ttrans,Size sze)
 {
 	Mat imageOut = image;
 	// Apply matrix transformation
-	warpPerspective(image, imageOut, trans, sze, INTER_LANCZOS4);
-	return imageOut;
+	warpPerspective(image, imageOut, ttrans, sze, INTER_LANCZOS4);
 	
+	return imageOut;
 };
 

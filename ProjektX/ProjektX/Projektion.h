@@ -18,5 +18,6 @@ public:
 	Mat bildRotieren( Mat image, double alpha, double beta, double gamma);
 	Mat matrixErrechnen(Mat image, double alpha, double beta, double gamma);
 	Size sizeBerechnen(Mat trans, Mat image);
-	Mat bildDrehen(Mat image, Mat trans, Size sze);
+	Mat translation(Mat image, Mat trans, Size sze);
+	Mat bildDrehen(Mat image, Mat ttrans, Size sze);
 };
