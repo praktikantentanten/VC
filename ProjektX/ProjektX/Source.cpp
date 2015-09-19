@@ -15,9 +15,11 @@ int main(int argc, char *argv[])
 {
 		//Variablen für Test erzeugen
 		Mat image = imread("adam1.png", 0);
-		double alpha = 120;
-		double beta = 70;
-		double gamma =135; 
+		double alpha = 10;
+		double beta = 90;
+		double gamma =90; 
+		double theta = 10;
+		double phi = 90;
 		Projektion Proj ;
 		Mat imageOut = image;
 		/*
@@ -36,12 +38,22 @@ int main(int argc, char *argv[])
 		string a = to_string((int)alpha - 90);
 		string b = to_string((int)beta - 90);
 		string c = to_string((int)gamma - 90);
+		string t = to_string((int)theta);
+		string p = to_string((int)phi);
 		string s;
-		s = "adam " + a + " , " + b + " , " + c + ".png";
-		
+		string s1;
+		s1 = "adam " + a + " , " + b + " , " + c + ".png";
+		s = "kugel " + t + " , " + p + ".png";
 		//bild erzeugen
-		imageOut = Proj.bildRotieren(image, alpha,beta,gamma);
-				
+		//imageOut = Proj.bildRotieren(image, alpha,beta,gamma);
+		imageOut = Proj.bildRotieren(image, theta, phi);
+
+		//Ordner erstellen bzw auswählen
+		/*
+			CreateDirectory
+			SetCurrentDirectory
+		*/
+
 		//bild speichern
 		imwrite(s, imageOut);
 				

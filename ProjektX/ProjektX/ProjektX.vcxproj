@@ -124,6 +124,7 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="Mathe.cpp" />
     <ClCompile Include="Source.cpp" />
     <ClCompile Include="Projektion.cpp" />
     <ClCompile Include="BerechnungKeypoints.cpp" />
@@ -132,6 +133,7 @@
     <None Include="ClassDiagram.cd" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="Mathe.h" />
     <ClInclude Include="Projektion.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />

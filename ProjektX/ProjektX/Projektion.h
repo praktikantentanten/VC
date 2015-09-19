@@ -13,11 +13,27 @@ using namespace cv;
 class Projektion
 {
 public:
+	
 	Projektion();
 	~Projektion();
-	Mat bildRotieren( Mat image, double alpha, double beta, double gamma);
-	Mat matrixErrechnen(Mat image, double alpha, double beta, double gamma);
-	Size sizeBerechnen(Mat trans, Mat image);
-	Mat translation(Mat image, Mat trans, Size sze);
-	Mat bildDrehen(Mat image, Mat ttrans, Size sze);
+	Mat bildRotieren(Mat image, double alpha, double beta, double gamma);
+	Mat bildRotieren(Mat image, double theta, double phi);
+	Mat matrixErrechnen(double alpha, double beta, double gamma);
+	Size sizeBerechnen();
+	//BildInput
+	Mat image;
+	//BildOutput
+	Mat imageOut;
+	//Transformationsmatrix
+	Mat trans;
+
+private:	
+	//Objekt für mathem. Berechnungen
+	Mathe M; 
+	//Größe des BildInputs
+	Size size; 
+	//Größe des BildOutputs
+	Size sizeOut;
+	double  xmin, xmax, ymin, ymax ; // Minimale und maximale X und Y Werte der Eckpunkte des Bildes
+
 };
