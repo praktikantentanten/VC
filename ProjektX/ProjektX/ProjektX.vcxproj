@@ -124,17 +124,23 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="KeyPointDetektor.cpp" />
+    <ClCompile Include="KeyPointProjektor.cpp" />
     <ClCompile Include="Mathe.cpp" />
     <ClCompile Include="Source.cpp" />
     <ClCompile Include="Projektion.cpp" />
     <ClCompile Include="BerechnungKeypoints.cpp" />
+    <ClCompile Include="Speicher.cpp" />
   </ItemGroup>
   <ItemGroup>
     <None Include="ClassDiagram.cd" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="KeyPointDetektor.h" />
+    <ClInclude Include="KeyPointProjektor.h" />
     <ClInclude Include="Mathe.h" />
     <ClInclude Include="Projektion.h" />
+    <ClInclude Include="Speicher.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

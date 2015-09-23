@@ -3,6 +3,7 @@
 #include <opencv2/highgui/highgui.hpp>
 #include <iostream>
 #include "Projektion.h"
+#include "Speicher.h"
 
 
 
@@ -21,6 +22,7 @@ int main(int argc, char *argv[])
 		double theta = 10;
 		double phi = 90;
 		Projektion Proj ;
+		Speicher Speicher;
 		Mat imageOut = image;
 		/*
 		adam 0 , 20 , 0 _ 22, 31
@@ -49,10 +51,7 @@ int main(int argc, char *argv[])
 		imageOut = Proj.bildRotieren(image, theta, phi);
 
 		//Ordner erstellen bzw auswählen
-		/*
-			CreateDirectory
-			SetCurrentDirectory
-		*/
+		Speicher.SetFolder(s);
 
 		//bild speichern
 		imwrite(s, imageOut);

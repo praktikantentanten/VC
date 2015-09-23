@@ -122,7 +122,7 @@ Mat Projektion::matrixErrechnen(double alpha = 90, double beta = 90, double gamm
 	Mat trans = A2 * (T * (R * A1));
 	
 	//Zwischenschritt: Größe des Bildes berechnen ---------------------------
-	sizeOut = sizeBerechnen();
+	sizeBerechnen();
 	//-----------------------------------------------------------------------
 
 	//Translationmatrix (Zurechtrücken des Bildes)
@@ -138,7 +138,7 @@ Mat Projektion::matrixErrechnen(double alpha = 90, double beta = 90, double gamm
 /*
 Berechnung der Größe des neuen Bildes 
 */
-Size Projektion::sizeBerechnen() {
+void Projektion::sizeBerechnen() {
 	//Obenlinks
 	Mat oL = (Mat_<double>(3, 1) << 0, 0, 1);
 	//UntenLinks

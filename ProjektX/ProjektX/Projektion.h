@@ -6,6 +6,7 @@
 #include <iostream>
 #include <iomanip>
 #include <cmath>
+#include "Mathe.h"
 
 
 using namespace cv;
@@ -19,7 +20,7 @@ public:
 	Mat bildRotieren(Mat image, double alpha, double beta, double gamma);
 	Mat bildRotieren(Mat image, double theta, double phi);
 	Mat matrixErrechnen(double alpha, double beta, double gamma);
-	Size sizeBerechnen();
+	void sizeBerechnen();
 	//BildInput
 	Mat image;
 	//BildOutput
