@@ -45,7 +45,7 @@ int main(int argc, char *argv[])
 		string s;
 		string s1;
 		s1 = "adam " + a + " , " + b + " , " + c + ".png";
-		s = "kugel " + t + " , " + p + ".png";
+		s = "kugel " + t + " _ " + p + ".png";
 		//bild erzeugen
 		//imageOut = Proj.bildRotieren(image, alpha,beta,gamma);
 		imageOut = Proj.bildRotieren(image, theta, phi);
