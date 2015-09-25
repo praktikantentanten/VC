@@ -1,10 +1,17 @@
 #pragma once
+//#include <windows.h>
+#include <opencv2/opencv.hpp>
+#include <opencv2/core/core.hpp>
+#include <opencv2/highgui/highgui.hpp>
 #include <iostream>
+
 class Speicher
 {
 public:
 	Speicher();
 	~Speicher();
-	bool SetFolder(std::string name);
+	bool Speicher::Save(cv::Mat img1, cv::Mat img2, std::string ordner, std::string uordner);
+	bool SetFolder(std::string ordner);
+	//LPSTR curDirectory;
 };
 
