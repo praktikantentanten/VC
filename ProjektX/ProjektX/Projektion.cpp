@@ -122,8 +122,6 @@ Mat Projektion::matrixErrechnen(double alpha = 90, double beta = 90, double gamm
 	trans = A2 * (T * (R * A1));
 	
 	//Zwischenschritt: Größe des Bildes berechnen ---------------------------
-
-	std::cout <<trans.at<double>(0,0) <<std::endl;
 	sizeBerechnen();
 	//-----------------------------------------------------------------------
 
