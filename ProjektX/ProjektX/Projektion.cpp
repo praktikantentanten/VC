@@ -47,7 +47,7 @@ Mat Projektion::bildRotieren(Mat img, double alpha, double beta, double gamma )
 Mat Projektion::bildRotieren(Mat image, double theta, double phi)
 {
 	//Umrechnung der Koordinaten
-	return bildRotieren(image, theta*cos(M.WinkelZuBogen(phi)) + 90, theta*sin(M.WinkelZuBogen(phi)) + 90, 90);
+	return bildRotieren(image, theta*cos(M.WinkelZuBogen(phi)) +90, theta*sin(M.WinkelZuBogen(phi)) +90, 90);
 
 }
 
@@ -139,6 +139,7 @@ Mat Projektion::matrixErrechnen(double alpha = 90, double beta = 90, double gamm
 Berechnung der Größe des neuen Bildes 
 */
 void Projektion::sizeBerechnen() {
+
 	//Obenlinks
 	Mat oL = (Mat_<double>(3, 1) << 0, 0, 1);
 	//UntenLinks
@@ -158,14 +159,16 @@ void Projektion::sizeBerechnen() {
 	//Eckpunkte, aufgeteilt in Koordinatenachsen, durch z-Wert geteilt und gespeichert
 	double EckpunkteX[4] = { oL.at<double>(0, 0) / oL.at<double>(2, 0), oR.at<double>(0, 0) / oR.at<double>(2, 0), uL.at<double>(0, 0) / uL.at<double>(2, 0), uR.at<double>(0, 0) / uR.at<double>(2, 0) };
 	double EckpunkteY[4] = { oL.at<double>(1, 0) / oL.at<double>(2, 0), oR.at<double>(1, 0) / oR.at<double>(2, 0), uL.at<double>(1, 0) / uL.at<double>(2, 0), uR.at<double>(1, 0) / uR.at<double>(2, 0) };
-
+	
+	xmax = EckpunkteX[0];
+	ymax = EckpunkteY[0];
 
 	// größtes X finden
-	for (int i = 0; i < 4; i++)
+	for (int i = 1; i < 4; i++)
 		xmax = max(EckpunkteX[i], xmax);
 
 	// größtes Y finden
-	for (int i = 0; i < 4; i++)
+	for (int i = 1; i < 4; i++)
 		ymax = max(EckpunkteY[i], ymax);
 	xmin = xmax;
 	// kleinstes X finden
