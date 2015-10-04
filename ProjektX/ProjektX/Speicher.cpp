@@ -18,19 +18,26 @@ Speicher::Speicher()
 Speicher::~Speicher()
 {
 }
+bool Speicher::Save(cv::Mat img, std::string ordner, std::string uordner)
+{
 
-/// Bildpfad zwischengespeichert, Unterordner fuer Keypoints erzeugt, Arbeitsumgebung auf erstellten Unterordner gesetzt
-bool Speicher::Save(cv::Mat img1, cv::Mat img2, std::string ordner, std::string uordner)
-{	
 	//Ordner für Eingangsbild
 	SetFolder(ordner);
 	//Unterordner für proj. Bild
-	SetFolder(ordner + "\\" + uordner);
+	SetFolder(ordner + "\\" + ordner);
 
 	//Bilder speichern
 	std::string buffer = uordner + ".png";
-	std::string buffer2 = "keypoints" + uordner + ".png"; 
-	cv::imwrite(buffer, img1);
+	cv::imwrite(buffer, img);
+
+	return true;
+}
+
+/// Bildpfad zwischengespeichert, Unterordner fuer Keypoints erzeugt, Arbeitsumgebung auf erstellten Unterordner gesetzt
+bool Speicher::Save(cv::Mat img1, cv::Mat img2, std::string ordner, std::string uordner)
+{
+	Save(img1, ordner, uordner);
+	std::string buffer2 = "keypoints" + uordner + ".png";
 	cv::imwrite(buffer2, img2);
 	
 	return true;

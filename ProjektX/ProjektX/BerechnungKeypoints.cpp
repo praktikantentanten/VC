@@ -23,6 +23,7 @@ int main1(int argc, char *argv[])
 
 	for (int i = 0; i < ptblobs.size(); i++)
 	{
+//		ptblobs.at(1).size;
 		RotatedRect rrr = fitEllipse(ptblobs.at(i));
 		ellipse(imageOut,rrr, (0,255,255 )) ;
 	}
