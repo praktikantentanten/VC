@@ -20,7 +20,7 @@ public:
 	Mat bildRotieren(Mat image, double alpha, double beta, double gamma);
 	Mat bildRotieren(Mat image, double theta, double phi);
 	Mat matrixErrechnen(double alpha, double beta, double gamma);
-	void sizeBerechnen();
+	Size Projektion::sizeBerechnen(Mat oL, Mat uL, Mat oR, Mat uR,Mat transL);
 	//BildInput
 	Mat image;
 	//BildOutput

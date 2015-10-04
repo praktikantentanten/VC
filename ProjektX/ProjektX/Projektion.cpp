@@ -122,7 +122,15 @@ Mat Projektion::matrixErrechnen(double alpha = 90, double beta = 90, double gamm
 	trans = A2 * (T * (R * A1));
 	
 	//Zwischenschritt: Größe des Bildes berechnen ---------------------------
-	sizeBerechnen();
+	 //Obenlinks
+	Mat oL = (Mat_<double>(3, 1) << 0, 0, 1);
+	 //UntenLinks
+	Mat uL = (Mat_<double>(3, 1) << 0, size.height - 1, 1);
+	 //ObenRechts
+	Mat oR = (Mat_<double>(3, 1) << size.width - 1, 0, 1);
+	 //UntenRechts
+	Mat uR = (Mat_<double>(3, 1) << size.width - 1, size.height - 1, 1);
+	sizeOut =sizeBerechnen(oL,uL,oR,uR,trans);
 	//-----------------------------------------------------------------------
 
 	//Translationmatrix (Zurechtrücken des Bildes)
@@ -132,53 +140,39 @@ Mat Projektion::matrixErrechnen(double alpha = 90, double beta = 90, double gamm
 		0, 0, 1);
 
 	return tlt*trans;
-
 };
+
 
 /*
 Berechnung der Größe des neuen Bildes 
 */
-void Projektion::sizeBerechnen() {
-
-	//Obenlinks
-	Mat oL = (Mat_<double>(3, 1) << 0, 0, 1);
-	//UntenLinks
-	Mat uL = (Mat_<double>(3, 1) << 0, size.height - 1, 1);
-	//ObenRechts
-	Mat oR = (Mat_<double>(3, 1) << size.width - 1, 0, 1);
-	//UntenRechts
-	Mat uR = (Mat_<double>(3, 1) << size.width - 1, size.height - 1, 1);
-
+Size Projektion::sizeBerechnen(Mat oL,Mat uL,Mat oR,Mat uR, Mat transL) {
 	// Verschiebung der Eckpunkte durch Matrix berechnen.
-	oL = trans*oL;
-	uL = trans*uL;
-	oR = trans*oR;
-	uR = trans*uR;
+	oL = transL*oL;
+	uL = transL*uL;
+	oR = transL*oR;
+	uR = transL*uR;
 	
 
 	//Eckpunkte, aufgeteilt in Koordinatenachsen, durch z-Wert geteilt und gespeichert
 	double EckpunkteX[4] = { oL.at<double>(0, 0) / oL.at<double>(2, 0), oR.at<double>(0, 0) / oR.at<double>(2, 0), uL.at<double>(0, 0) / uL.at<double>(2, 0), uR.at<double>(0, 0) / uR.at<double>(2, 0) };
 	double EckpunkteY[4] = { oL.at<double>(1, 0) / oL.at<double>(2, 0), oR.at<double>(1, 0) / oR.at<double>(2, 0), uL.at<double>(1, 0) / uL.at<double>(2, 0), uR.at<double>(1, 0) / uR.at<double>(2, 0) };
 	
+	xmin = EckpunkteX[0];
 	xmax = EckpunkteX[0];
+	ymin = EckpunkteY[0];
 	ymax = EckpunkteY[0];
-
-	// größtes X finden
 	for (int i = 1; i < 4; i++)
+	{
+		// größtes X finden
 		xmax = max(EckpunkteX[i], xmax);
-
-	// größtes Y finden
-	for (int i = 1; i < 4; i++)
+		// größtes Y finden
 		ymax = max(EckpunkteY[i], ymax);
-	xmin = xmax;
-	// kleinstes X finden
-	for (int i = 0; i < 4; i++)
+		// kleinstes X finden
 		xmin = min(EckpunkteX[i], xmin);
-	// kleinstes Y finden
-	ymin = ymax;
-	for (int i = 0; i < 4; i++)
+		// kleinstes Y finden
 		ymin = min(EckpunkteY[i], ymin);
-
+	}
 
 
 	//Ausgabe der einzelnen X,Y,Z-Werte zur Kontrolle
@@ -190,7 +184,7 @@ void Projektion::sizeBerechnen() {
 	
 
 	//Errechnen der Bildgröße des zu erzeugenden Bilds
-	sizeOut = Size((xmax - xmin + 1), ymax - ymin + 1);
+	return Size((xmax - xmin + 1), ymax - ymin + 1);
 };
 
 

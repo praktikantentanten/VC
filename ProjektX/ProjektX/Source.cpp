@@ -30,9 +30,10 @@ int main(int argc, char *argv[])
 		Mat img;
 		vector<Mat> images;
 		vector<String>imagenName;
-		vector<Mat> transMs;
+		vector<Projektion> imgProj;
 		vector<Rect> bboxes;
-		int i; int j; int h; int k;
+		int i; int w; int h; int k;
+		double xmin; double xmax; double ymin; double ymax;
 
 		//bildnamen aus Parametern erstellen
 		string s1 = Mathe.WinkelZuString(alpha, beta, gamma);
@@ -44,6 +45,7 @@ int main(int argc, char *argv[])
 		{
 			//bilder drehen
 			images.push_back( Proj.bildRotieren(image, winkels.at<double>(i, 0), winkels.at<double>(i, 1)) );
+			imgProj.push_back(Proj);
 			imagenName.push_back(Mathe.WinkelZuString(winkels.at<double>(i, 0), winkels.at<double>(i, 1)));
 		}
 		//für jedes FeatureFeld
@@ -53,14 +55,15 @@ int main(int argc, char *argv[])
 			//für jedes proj. Bild
 			for (k = 0; k < images.size; k++)
 			{
-/* TRANSFORMATIONSMATRIX MUSS NOCH VERWENDET WERDEN
-----------------------------------------------------------------------------------------------------------------------+++++++++++gerhroghrgherg
-				*/
+				//imgProj.at(k).sizeBerechnen(bboxes.at(i).x);
 				img.size() = images.at(k).size(); //Größe des Zwischenspeichers anpassen
+/* TRANSFORMATIONSMATRIX MUSS NOCH VERWENDET WERDEN----------------------------------------------------------------------------------------------------------------------
+				*/
+			
 				//für jeden Punkt im FeatureFeld
 				for (h = bboxes.at(i).x; h < bboxes.at(i).height; h++)
-					for (j = bboxes.at(i).y; j < bboxes.at(i).width; j++)
-						img.at<int>(h- bboxes.at(i).x, h-bboxes.at(i).y)=images.at(k).at<int>(h,j) ;
+					for (w = bboxes.at(i).y; w < bboxes.at(i).width; w++)
+						img.at<int>(h- bboxes.at(i).x, h-bboxes.at(i).y)=images.at(k).at<int>(h,w) ;
 				Speicher.Save(img,ad,imagenName.at(k)); //Abspeichern
 				img.release; //Zwischenspeicher leeren
 			}
