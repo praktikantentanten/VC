@@ -16,23 +16,18 @@ int main(int argc, char *argv[])
 {
 		//Variablen für Test erzeugen
 		Mat image = imread("adam1.png", 0);
-		double alpha = 10;
-		double beta = 90;
-		double gamma =90; 
-		double theta = 10;
-		double phi = 90;
-		Projektion Proj ;
-		Speicher Speicher;
-		Mat imageOut = image;
-		Mathe Mathe;
-		Mat winkels = (Mat_<double>(3, 2) << 60, 90,45,45,30,225);
-		int ar = 3;
-		Mat img;
-		vector<Mat> images;
-		vector<String>imagenName;
-		vector<Projektion> imgProj;
-		vector<Rect> bboxes;
-		int i; int w; int h; int k;
+		double alpha = 10; double beta = 90; double gamma =90; double theta = 10; double phi = 90;
+		Projektion Proj ; Speicher Speicher; Mat imageOut = image; Mathe Mathe;
+		Mat winkels = (Mat_<double>(3, 2) << 60, 90,45,45,30,225); // Mat für Winkel
+
+		Mat img;													//Zwischenspeicher
+		Mat coord1 =(Mat_ <double>(3,1) << 0, 0, 1);				//Zwischenspeicher
+		Mat coord2;													//Zwischenspeicher
+		vector<Mat> images;											//alle proj. Bildern
+		vector<String>imagenName;									//Bildnamen von allen proj. Bildern
+		vector<Projektion> imgProj;									//alle Projektion-Obj zu den proj. Bildern
+		vector<Rect> bboxes;										//Die MSER-Bereiche fürs Ausschneiden
+		int i; int w; int h; int k;									//Zählvariablen für Schleifen
 		double xmin; double xmax; double ymin; double ymax;
 
 		//bildnamen aus Parametern erstellen
@@ -43,7 +38,7 @@ int main(int argc, char *argv[])
 		//für jeden Winkel
 		for (i = 0; i <winkels.size().height;i++)
 		{
-			//bilder drehen
+			//bilder drehen, wichtige Teile speichern
 			images.push_back( Proj.bildRotieren(image, winkels.at<double>(i, 0), winkels.at<double>(i, 1)) );
 			imgProj.push_back(Proj);
 			imagenName.push_back(Mathe.WinkelZuString(winkels.at<double>(i, 0), winkels.at<double>(i, 1)));
@@ -55,15 +50,24 @@ int main(int argc, char *argv[])
 			//für jedes proj. Bild
 			for (k = 0; k < images.size; k++)
 			{
-				//imgProj.at(k).sizeBerechnen(bboxes.at(i).x);
-				img.size() = images.at(k).size(); //Größe des Zwischenspeichers anpassen
-/* TRANSFORMATIONSMATRIX MUSS NOCH VERWENDET WERDEN----------------------------------------------------------------------------------------------------------------------
-				*/
+				//Koordinaten Umrechnen				
+				coord1 = (Mat_ <int>(3, 1) << bboxes.at(i).x, bboxes.at(i).y,  1);
+				coord2 = (Mat_ <int>(3, 1) << bboxes.at(i).width, bboxes.at(i).height,  1);
+				coord1 = imgProj.at(k).trans*coord1;
+				coord2 = imgProj.at(k).trans*coord2;
+				coord1.at<int>(0, 0) = coord1.at<int>(0, 0) / coord1.at<int>(2, 0);
+				coord1.at<int>(1, 0) = coord1.at<int>(1, 0) / coord1.at<int>(2, 0);
+				coord2.at<int>(0, 0) = coord2.at<int>(0, 0) / coord1.at<int>(2, 0);
+				coord2.at<int>(1, 0) = coord2.at<int>(1, 0) / coord1.at<int>(2, 0);
+
+				//Größe des Zwischenspeichers anpassen
+				img.size() = images.at(k).size();
 			
-				//für jeden Punkt im FeatureFeld
-				for (h = bboxes.at(i).x; h < bboxes.at(i).height; h++)
-					for (w = bboxes.at(i).y; w < bboxes.at(i).width; w++)
-						img.at<int>(h- bboxes.at(i).x, h-bboxes.at(i).y)=images.at(k).at<int>(h,w) ;
+				//für jeden Punkt im FeatureFeld				
+				for (w = coord1.at<int>(0,0); w < coord2.at<int>(0, 0); w++) //x-koordinate vom Ausschnitt
+						for (h = coord1.at<int>(1, 0); h < coord2.at<int>(1, 0); h++)//y-koordinate vom Ausschnitt
+						img.at<int>(h- coord1.at<int>(0, 0), w- coord1.at<int>(1, 0))=images.at(k).at<int>(h,w) ; //Zwischenspeicher befüllen von 0,0 an
+
 				Speicher.Save(img,ad,imagenName.at(k)); //Abspeichern
 				img.release; //Zwischenspeicher leeren
 			}
