@@ -18,15 +18,15 @@ KeyPointDetektor::~KeyPointDetektor()
 {
 }
 //MSER
-/*
-vector< vector<cv::Point > > KeyPointDetektor::Mser(Mat image)
+
+std::vector<cv::Rect>  KeyPointDetektor::Mser(cv::Mat image)
 {
 	cv::Ptr<cv::MSER> mser = cv::MSER::create();
 	vector< vector<cv::Point > > ptblobs;
 	vector<cv::Rect> bboxes;
 	//MSER Detect wird ausgeführt 
 	mser->detectRegions(image, ptblobs, bboxes);
-	return ptblobs; 
+	return bboxes; 
 }
-*/
+
 //SIFT
