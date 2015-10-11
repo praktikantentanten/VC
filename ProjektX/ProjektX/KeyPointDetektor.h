@@ -9,6 +9,7 @@ class KeyPointDetektor
 public:
 	KeyPointDetektor();
 	~KeyPointDetektor();
-	std::vector <cv::Rect> KeyPointDetektor::Mser(cv::Mat image);
+	bool KeyPointDetektor::Mser(cv::Mat image);
+	std::vector <cv::Rect> bboxes;
 };
 
