@@ -36,6 +36,7 @@ Mat Projektion::bildRotieren(Mat img, double alpha, double beta, double gamma )
 	
 	//Anwenden von warpPerspective mit errechneter Matrix
 	warpPerspective(image, imageOut, trans, sizeOut, INTER_LANCZOS4);
+	std::cout << "bildRotieren erfolgreich" << std::endl;
 	//Bild ausgeben
 	return imageOut;
 
@@ -138,7 +139,7 @@ Mat Projektion::matrixErrechnen(double alpha = 90, double beta = 90, double gamm
 		1, 0, (0 - xmin),
 		0, 1, (0 - ymin),
 		0, 0, 1);
-
+	std::cout << "MatrixErrechnen erfolgreich" << std::endl;
 	return tlt*trans;
 };
 
@@ -186,7 +187,8 @@ std::vector<double> Projektion::sizeBerechnen(Mat ol,Mat ul,Mat orr,Mat ur, Mat 
 */
 	//Errechnen der Bildgröße des zu erzeugenden Bilds
 	sizeOut= Size((xmax - xmin + 1), ymax - ymin + 1);
-	std::vector<double> VecOut{ xmax - xmin + 1, ymax - ymin + 1 };
+	std::vector<double> VecOut{ xmin,xmax, ymin,ymax }; 
+	std::cout <<"sizeBerechnen erfolgreich" <<std::endl;
 	return VecOut;
 };
 

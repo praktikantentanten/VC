@@ -12,8 +12,7 @@ class KeyPointProjektor
 public:
 	KeyPointProjektor();
 	~KeyPointProjektor();
-	Mat keyPointsProj(Mat keyPoints, double keyPointLength, Mat trans);
-	Mat keypoints;
-	Mat transMatrix;
+	bool KeyPointProjektor::keyPointsProj(vector<Rect> bboxes, vector<double> coordZ, Mat trans, Mat image, string name);
+	vector<Rect> bboxes;
 };
 
