@@ -82,8 +82,12 @@ Mat coordZ = imgProj.at(k).sizeBerechnen(coord1, coord2, coord3, coord4, imgProj
 				//cout << "w,h: (" << w << "," << h << ")"  << ends;
 			}
 		}
+		cout << w << " _ " << h << endl;
 		cout << "ImageName: " << name << endl;
-		Speicher.Save(img, name, name); //Abspeichern
+		if (img.size().height + img.size().width>0)
+			Speicher.Save(img, name, name); //Abspeichern
+		else
+			return -1;
 												  //	img.release(); //Zwischenspeicher leeren
 	}
 

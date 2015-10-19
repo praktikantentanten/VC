@@ -52,7 +52,7 @@ int main(int argc, char *argv[])
 			images.push_back( Proj.bildRotieren(image, winkels.at<double>(i, 0), winkels.at<double>(i, 1)) );
 			imgProj.push_back(Proj);
 			imagenName.push_back(Mathe.WinkelZuString(winkels.at<double>(i, 0), winkels.at<double>(i, 1)));
-			//Speicher.Save(images.at(i), "testo", imagenName.at(i)); //Abspeichern
+			Speicher.Save(images.at(i), "testo", imagenName.at(i)); //Abspeichern
 		}
 		
 		//für jedes proj. Bild

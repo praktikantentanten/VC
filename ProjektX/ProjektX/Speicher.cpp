@@ -16,22 +16,20 @@
 Speicher::Speicher()
 {
 }
-
-
 Speicher::~Speicher()
 {
 }
 bool Speicher::Save(cv::Mat img, std::string ordner, std::string uordner)
 {
 	//Ordner für Eingangsbild
-	SetFolder("Praktikum");
+	SetFolder(ordner);
 	//Unterordner für proj. Bild
-	SetFolder("Praktikum \\" + ordner);
+	//SetFolder("Praktikum\\" + ordner);
 	//Bilder speichern
 	std::string buffer = uordner + ".png";
 	std::cout << buffer << std::endl;
-	cv::imwrite(buffer, img);
 
+	cv::imwrite(buffer, img);
 	return true;
 }
 
@@ -50,13 +48,13 @@ bool Speicher::Save(cv::Mat img1, cv::Mat img2, std::string ordner, std::string 
 //Ordner erzeugen und als Arbeitsumgebung setzen
 bool Speicher::SetFolder(std::string ordner)
 {	
+	
 	std::string buf = "C:\\" + ordner;
 	LPSTR curDirectory = const_cast<char *> (buf.c_str());
-
 	std::cout << "buffer erfolgreich " << std::endl;
 	//Ordner erzeugen
-	//if(PathFileExistsA(curDirectory)==FALSE)
-	CreateDirectory(curDirectory, NULL);
+	if(SetCurrentDirectory(curDirectory) ==0)
+	CreateDirectory(curDirectory,NULL);
 	std::cout << "CreateDirectory erfolgreich " << std::endl;
 	//als Arbeitsumgebung setzen
 	SetCurrentDirectory(curDirectory);
