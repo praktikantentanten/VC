@@ -26,9 +26,15 @@ Mat coordZ = imgProj.at(k).sizeBerechnen(coord1, coord2, coord3, coord4, imgProj
 */
  bool KeyPointProjektor::keyPointsProj(vector<Rect> boxes, vector<double> coordZ, Mat trans,Mat image,string name)
 {
+	Mat tlt = (Mat_<double>(3, 3) <<
+		1, 0, (0 - coordZ.at(0)),
+		0, 1, (0 - coordZ.at(2)),
+		0, 0, 1);
 	string ad = "";
-	Mat img;int i; int w; int h;
+	double xmin; double ymin; double xmax; double ymax;
+	Mat img;int i; double w; double h;
 	Speicher Speicher;
+	Projektion Proj;
 	bboxes = boxes;
 	//für jedes FeatureFeld
 	for (i = 0; i < bboxes.size(); i++)
@@ -43,46 +49,51 @@ Mat coordZ = imgProj.at(k).sizeBerechnen(coord1, coord2, coord3, coord4, imgProj
 		Mat coord3 = (Mat_ <double>(3, 1) << bboxes.at(i).x + bboxes.at(i).width, bboxes.at(i).y, 1);
 		Mat coord4 = (Mat_ <double>(3, 1) << bboxes.at(i).x + bboxes.at(i).width, bboxes.at(i).y + bboxes.at(i).height, 1);
 		
-		cout << "coord1 nach trans " << coord1.at<int>(0, 0) << " _ " << coord1.at<int>(1, 0) << " _ " << coord1.at<int>(2, 0) << endl;
+		cout << "coord1 nach trans " << coord1.at<double>(0, 0) << " _ " << coord1.at<double>(1, 0) << " _ " << coord1.at<double>(2, 0) << endl;
 		std::cout << std::endl;
 		//neuen 0-Punkt berechnen
-		coord2.at<int>(0, 0) = 0;
-		coord2.at<int>(1, 0) = 0;
-		coord2.at<int>(2, 0) = 1;
-		coord2 = trans*coord2;
-		//durch z teilen
-		coord2.at<int>(0, 0) = coord2.at<int>(0, 0) / coord2.at<int>(2, 0);
-		coord2.at<int>(1, 0) = coord2.at<int>(1, 0) / coord2.at<int>(2, 0);
-		//0-Punkt addieren
-		coord1.at<int>(0, 0) = coord1.at<int>(0, 0) - coord2.at<int>(0, 0);
-		coord1.at<int>(1, 0) = coord1.at<int>(1, 0) - coord2.at<int>(1, 0);
+		coord1 = Proj.PunktVerschieben(coord1, tlt, trans);
+		coord2 = Proj.PunktVerschieben(coord2, tlt, trans);
+		coord3 = Proj.PunktVerschieben(coord3, tlt, trans);
+		coord4 = Proj.PunktVerschieben(coord4, tlt, trans);
+		
 		//Maximalwerte einspeichern
-		coord3.at<int>(0, 0) = 0 - coordZ.at(0) + 1;
-		coord3.at<int>(1, 0) = 0 - coordZ.at(2) + 1;
-		coord4.at<int>(0, 0) = coordZ.at(1) - coordZ.at(0) + 1;
-		coord4.at<int>(1, 0) = coordZ.at(3) - coordZ.at(2) + 1;
+		/*
+		coord3.at<double>(0, 0) = 0 - coordZ.at(0) + 1;
+		coord3.at<double>(1, 0) = 0 - coordZ.at(2) + 1;
+		coord4.at<double>(0, 0) = coordZ.at(1) - coordZ.at(0) + 1;
+		coord4.at<double>(1, 0) = coordZ.at(3) - coordZ.at(2) + 1;
+		*/
+		double EckpunkteX[4] = { coord1.at<double>(0, 0) , coord2.at<double>(0, 0) , coord3.at<double>(0, 0) , coord4.at<double>(0, 0) };
+		double EckpunkteY[4] = { coord1.at<double>(1, 0) , coord2.at<double>(1, 0) , coord3.at<double>(1, 0) , coord4.at<double>(1, 0) };
+		xmin = EckpunkteX[0];
+		xmax = EckpunkteX[0];
+		ymin = EckpunkteY[0];
+		ymax = EckpunkteY[0];
+		for (int i = 1; i < 4; i++)
+		{
+			// größtes X finden
+			xmax = max(EckpunkteX[i], xmax);
+			// größtes Y finden
+			ymax = max(EckpunkteY[i], ymax);
+			// kleinstes X finden
+			xmin = min(EckpunkteX[i], xmin);
+			// kleinstes Y finden
+			ymin = min(EckpunkteY[i], ymin);
+		}
+		xmin = xmin - coordZ.at(0);
+		ymin = ymin - coordZ.at(1);
+		xmax = xmax - coordZ.at(0);
+		ymax = ymax - coordZ.at(1);
 
-		cout << "Bildpunkte:coord1 " << coord1.at<int>(0, 0) << " _ " << coord1.at<int>(1, 0) << " _ " << coord1.at<int>(2, 0)
-			<< "Bildpunkte:coord2 " << coord2.at<int>(0, 0) << " _ " << coord2.at<int>(1, 0) << " _ " << coord2.at<int>(2, 0)
-			<< "Bildpunkte:coord3 " << coord3.at<int>(0, 0) << " _ " << coord3.at<int>(1, 0) << " _ " << coord3.at<int>(2, 0)
-			<< "Bildpunkte:coord4 " << coord4.at<int>(0, 0) << " _ " << coord4.at<int>(1, 0) << endl;
-		std::cout << std::endl;
-
-
+		cout << "xmin: " << xmin << "ymin: " << ymin << "xamx: " << xmax << "ymax: " << ymax <<"imagesize: "<<image.size()<< endl;		
+		img.size() = Size(xmax-xmin,ymax-ymin);
 		cout << "Groeße des Zwischenspeichers anpassen" << endl;
-		 img = Mat::zeros(coord4.at<int>(0, 0), coord4.at<int>(1, 0), CV_64F);
+		img = image(Rect(xmin, ymin, xmax - xmin + 1, ymax - ymin + 1));
 
 		cout << "fuer jeden Punkt im FeatureFeld" << endl;
 		std::cout << std::endl;
-		for (w = 0; w < coord4.at<int>(0, 0) - coord1.at<int>(0, 0); w++) //x-koordinate vom Ausschnitt
-		{
-			for (h = 0; h < coord4.at<int>(1, 0) - coord1.at<int>(1, 0); h++)//y-koordinate vom Ausschnitt 
-			{
-				img.at<int>(w, h) = image.at<int>(w + coord1.at<int>(0, 0), h + coord1.at<int>(1, 0)); //Zwischenspeicher befüllen von 0,0 an
-				//cout << "w,h: (" << w << "," << h << ")"  << ends;
-			}
-		}
-		cout << w << " _ " << h << endl;
+
 		cout << "ImageName: " << name << endl;
 		if (img.size().height + img.size().width>0)
 			Speicher.Save(img, name, name); //Abspeichern

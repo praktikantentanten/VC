@@ -21,6 +21,9 @@ public:
 	Mat bildRotieren(Mat image, double theta, double phi);
 	Mat matrixErrechnen(double alpha, double beta, double gamma);
 	std::vector<double> Projektion::sizeBerechnen(Mat ol, Mat ul, Mat orr, Mat ur,Mat transL);
+	Mat Projektion::PunktVerschieben(Mat punkt,Mat trans);
+	Mat Projektion::PunktVerschieben(Mat punkt, Mat trans, Mat transL); // Überladen
+	std::vector <Mat> Projektion::PunkteVerschieben(std::vector<Mat> punkte, Mat trans);
 	//BildInput
 	Mat image;
 	//BildOutput

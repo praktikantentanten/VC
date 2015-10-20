@@ -29,7 +29,11 @@ bool Speicher::Save(cv::Mat img, std::string ordner, std::string uordner)
 	std::string buffer = uordner + ".png";
 	std::cout << buffer << std::endl;
 
+	cv::namedWindow("image");
+	imshow("image", img);
+	//cv::waitKey(0);
 	cv::imwrite(buffer, img);
+	std::cout << "Save erfolgreich" << std::endl;
 	return true;
 }
 
@@ -53,7 +57,7 @@ bool Speicher::SetFolder(std::string ordner)
 	LPSTR curDirectory = const_cast<char *> (buf.c_str());
 	std::cout << "buffer erfolgreich " << std::endl;
 	//Ordner erzeugen
-	if(SetCurrentDirectory(curDirectory) ==0)
+	//if(SetCurrentDirectory(curDirectory) ==0)
 	CreateDirectory(curDirectory,NULL);
 	std::cout << "CreateDirectory erfolgreich " << std::endl;
 	//als Arbeitsumgebung setzen

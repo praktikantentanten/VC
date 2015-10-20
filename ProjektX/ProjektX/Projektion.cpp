@@ -38,6 +38,7 @@ Mat Projektion::bildRotieren(Mat img, double alpha, double beta, double gamma )
 	warpPerspective(image, imageOut, trans, sizeOut, INTER_LANCZOS4);
 	std::cout << "bildRotieren erfolgreich" << std::endl;
 	//Bild ausgeben
+	std::cout <<"Projektion: "<< "xmin: " << xmin << "ymin: " << ymin << "xamx: " << xmax << "ymax: " << ymax << std::endl;
 	return imageOut;
 
 };
@@ -150,15 +151,15 @@ Berechnung der Größe des neuen Bildes. Ausgabe: xmin, xmax, ymin, ymax
 
 std::vector<double> Projektion::sizeBerechnen(Mat ol,Mat ul,Mat orr,Mat ur, Mat transL) {
 	// Verschiebung der Eckpunkte durch Matrix berechnen.
-	Mat oL = transL*ol;
-	Mat uL = transL*ul;
-	Mat oR = transL*orr;
-	Mat uR = transL*ur;
+	Mat oL = PunktVerschieben(ol,transL);
+	Mat uL = PunktVerschieben(ul, transL);
+	Mat oR = PunktVerschieben(orr, transL);
+	Mat uR = PunktVerschieben(ur, transL);
 	
 
 	//Eckpunkte, aufgeteilt in Koordinatenachsen, durch z-Wert geteilt und gespeichert
-	double EckpunkteX[4] = { oL.at<double>(0, 0) / oL.at<double>(2, 0), oR.at<double>(0, 0) / oR.at<double>(2, 0), uL.at<double>(0, 0) / uL.at<double>(2, 0), uR.at<double>(0, 0) / uR.at<double>(2, 0) };
-	double EckpunkteY[4] = { oL.at<double>(1, 0) / oL.at<double>(2, 0), oR.at<double>(1, 0) / oR.at<double>(2, 0), uL.at<double>(1, 0) / uL.at<double>(2, 0), uR.at<double>(1, 0) / uR.at<double>(2, 0) };
+	double EckpunkteX[4] = { oL.at<double>(0, 0) , oR.at<double>(0, 0) , uL.at<double>(0, 0) , uR.at<double>(0, 0) };
+	double EckpunkteY[4] = { oL.at<double>(1, 0) , oR.at<double>(1, 0) , uL.at<double>(1, 0) , uR.at<double>(1, 0) };
 	
 	xmin = EckpunkteX[0];
 	xmax = EckpunkteX[0];
@@ -191,5 +192,30 @@ std::vector<double> Projektion::sizeBerechnen(Mat ol,Mat ul,Mat orr,Mat ur, Mat 
 	std::cout <<"sizeBerechnen erfolgreich" <<std::endl;
 	return VecOut;
 };
+/*
+	Überladene PunktVerschieben
+	Eingabe: Punkt, Translationsmatrix,Transformationsmatrix
+*/
+Mat Projektion::PunktVerschieben(Mat punkt, Mat transL, Mat trans) {
+	return PunktVerschieben(punkt, trans*transL);
+}
+/*
+PunktVerschieben:
+Eingabe: Punkt, Transformationsmatrix
+*/
+Mat Projektion::PunktVerschieben(Mat punkt,Mat trans){
+	Mat punktT = trans*punkt;
+	punktT.at<double>(0, 0) = punktT.at<double>(0, 0)/punktT.at<double>(2, 0);
+	punktT.at<double>(1, 0) = punktT.at<double>(1, 0) / punktT.at<double>(2, 0);
 
+	return punktT;
+}
+std::vector <Mat> Projektion::PunkteVerschieben(std::vector<Mat> punkte, Mat trans) {
+	std::vector <Mat> punkteT=punkte;
+	for (int i = 0; i < punkte.size(); i++){
+		punkteT.at(i) = PunktVerschieben(punkteT.at(i),trans);
+		
+	}
+	return punkteT;
+}
 
