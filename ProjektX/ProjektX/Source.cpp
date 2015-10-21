@@ -32,7 +32,7 @@ int main(int argc, char *argv[])
 		vector<Mat> images;											//alle proj. Bildern
 		vector<String>imagenName;									//Bildnamen von allen proj. Bildern
 		vector<Projektion> imgProj;									//alle Projektion-Obj zu den proj. Bildern		
-		int i; int w; int h; int k=0;									//Zählvariablen für Schleifen
+		int i; int w; int h; int k=1;									//Zählvariablen für Schleifen
 
 		//bildnamen aus Parametern erstellen
 		string s1 = Mathe.WinkelZuString(alpha, beta, gamma);
@@ -52,7 +52,7 @@ int main(int argc, char *argv[])
 			images.push_back( Proj.bildRotieren(image, winkels.at<double>(i, 0), winkels.at<double>(i, 1)) );
 			imgProj.push_back(Proj);
 			imagenName.push_back(Mathe.WinkelZuString(winkels.at<double>(i, 0), winkels.at<double>(i, 1)));
-			Speicher.Save(images.at(i), "testo", imagenName.at(i)); //Abspeichern
+			//Speicher.Save(images.at(i), "test", imagenName.at(i)); //Abspeichern
 		}
 		buf = imagenName.at(k);
 		KPProj.keyPointsProj(bboxes, imgProj.at(k).sizeBerechnen(coord1, coord2, coord3, coord4, imgProj.at(k).trans), imgProj.at(k).trans, images.at(k), buf);

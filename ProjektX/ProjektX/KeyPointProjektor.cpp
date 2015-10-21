@@ -41,7 +41,7 @@ Mat coordZ = imgProj.at(k).sizeBerechnen(coord1, coord2, coord3, coord4, imgProj
 	{
 		ad = "k"+to_string(i);
 		
-
+		cout << endl;
 		cout << "KeypointNr:"   << i << endl;
 		std::cout << std::endl;
 		Mat coord1 = (Mat_ <double>(3, 1) << bboxes.at(i).x, bboxes.at(i).y, 1);
@@ -49,14 +49,13 @@ Mat coordZ = imgProj.at(k).sizeBerechnen(coord1, coord2, coord3, coord4, imgProj
 		Mat coord3 = (Mat_ <double>(3, 1) << bboxes.at(i).x + bboxes.at(i).width, bboxes.at(i).y, 1);
 		Mat coord4 = (Mat_ <double>(3, 1) << bboxes.at(i).x + bboxes.at(i).width, bboxes.at(i).y + bboxes.at(i).height, 1);
 		
-		cout << "coord1 nach trans " << coord1.at<double>(0, 0) << " _ " << coord1.at<double>(1, 0) << " _ " << coord1.at<double>(2, 0) << endl;
-		std::cout << std::endl;
+		cout << "coord1 vor trans " << coord1.at<double>(0, 0) << " _ " << coord1.at<double>(1, 0) << " _ " << coord1.at<double>(2, 0) << endl;
 		//neuen 0-Punkt berechnen
 		coord1 = Proj.PunktVerschieben(coord1, tlt, trans);
 		coord2 = Proj.PunktVerschieben(coord2, tlt, trans);
 		coord3 = Proj.PunktVerschieben(coord3, tlt, trans);
 		coord4 = Proj.PunktVerschieben(coord4, tlt, trans);
-		
+		cout << "coord1 nach trans " << coord1.at<double>(0, 0) << " _ " << coord1.at<double>(1, 0) << " _ " << coord1.at<double>(2, 0) << endl;
 		//Maximalwerte einspeichern
 		/*
 		coord3.at<double>(0, 0) = 0 - coordZ.at(0) + 1;
@@ -81,24 +80,29 @@ Mat coordZ = imgProj.at(k).sizeBerechnen(coord1, coord2, coord3, coord4, imgProj
 			// kleinstes Y finden
 			ymin = min(EckpunkteY[i], ymin);
 		}
+		/*
+		cout << "xmin: " << xmin << "ymin: " << ymin << "xamx: " << xmax << "ymax: " << ymax  << endl;
+		std::cout << std::endl;
 		xmin = xmin - coordZ.at(0);
 		ymin = ymin - coordZ.at(1);
 		xmax = xmax - coordZ.at(0);
 		ymax = ymax - coordZ.at(1);
-
+		*/
+		cout << endl;
 		cout << "xmin: " << xmin << "ymin: " << ymin << "xamx: " << xmax << "ymax: " << ymax <<"imagesize: "<<image.size()<< endl;		
 		img.size() = Size(xmax-xmin,ymax-ymin);
-		cout << "Groeße des Zwischenspeichers anpassen" << endl;
-		img = image(Rect(xmin, ymin, xmax - xmin + 1, ymax - ymin + 1));
-
-		cout << "fuer jeden Punkt im FeatureFeld" << endl;
+		//cout << "Groeße des Zwischenspeichers anpassen" << endl;
+		//if((xmin>=0)&&(xmax-xmin>0)&&(xmin<img.size().width)&&((xmax-xmin)<=img.size().width) && (ymin>=0) && (ymax - ymin>0) && (ymin<img.size().height) && ((ymax - ymin)<=img.size().height))
+		img = image(Rect(xmin, ymin, xmax - xmin , ymax - ymin ));
+		//else cout << "KOORDINATEN SIND FEHLERHAFT" << endl;
+		//cout << "fuer jeden Punkt im FeatureFeld" << endl;
 		std::cout << std::endl;
 
-		cout << "ImageName: " << name << endl;
-		if (img.size().height + img.size().width>0)
-			Speicher.Save(img, name, name); //Abspeichern
+		cout << "ImageName: " << ad<<"|-|"<<name << endl;
+		if (img.size().height + img.size().width > 0)
+			Speicher.Save(img, ad, ad + name); //Abspeichern
 		else
-			return -1;
+			cout << "BILD IST NICHT BEFÜLLT" << endl;
 												  //	img.release(); //Zwischenspeicher leeren
 	}
 

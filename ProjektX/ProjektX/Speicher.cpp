@@ -33,7 +33,7 @@ bool Speicher::Save(cv::Mat img, std::string ordner, std::string uordner)
 	imshow("image", img);
 	//cv::waitKey(0);
 	cv::imwrite(buffer, img);
-	std::cout << "Save erfolgreich" << std::endl;
+	std::cout << "Save erfolgreich:" <<buffer<< std::endl;
 	return true;
 }
 
@@ -53,9 +53,9 @@ bool Speicher::Save(cv::Mat img1, cv::Mat img2, std::string ordner, std::string 
 bool Speicher::SetFolder(std::string ordner)
 {	
 	
-	std::string buf = "C:\\" + ordner;
+	std::string buf = "J:\\Praktikum\\" + ordner;
 	LPSTR curDirectory = const_cast<char *> (buf.c_str());
-	std::cout << "buffer erfolgreich " << std::endl;
+	std::cout << "buffer erfolgreich: " <<buf<< std::endl;
 	//Ordner erzeugen
 	//if(SetCurrentDirectory(curDirectory) ==0)
 	CreateDirectory(curDirectory,NULL);
