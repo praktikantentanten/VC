@@ -36,6 +36,8 @@ Mat coordZ = imgProj.at(k).sizeBerechnen(coord1, coord2, coord3, coord4, imgProj
 	Speicher Speicher;
 	Projektion Proj;
 	bboxes = boxes;
+	Speicher.SetFolder("praktikum");
+	Speicher.verzeichnis = "C:\\praktikum\\";
 	//für jedes FeatureFeld
 	for (i = 0; i < bboxes.size(); i++)
 	{
@@ -80,14 +82,10 @@ Mat coordZ = imgProj.at(k).sizeBerechnen(coord1, coord2, coord3, coord4, imgProj
 			// kleinstes Y finden
 			ymin = min(EckpunkteY[i], ymin);
 		}
-		/*
+		
 		cout << "xmin: " << xmin << "ymin: " << ymin << "xamx: " << xmax << "ymax: " << ymax  << endl;
 		std::cout << std::endl;
-		xmin = xmin - coordZ.at(0);
-		ymin = ymin - coordZ.at(1);
-		xmax = xmax - coordZ.at(0);
-		ymax = ymax - coordZ.at(1);
-		*/
+		
 		cout << endl;
 		cout << "xmin: " << xmin << " ymin: " << ymin << " xamx: " << xmax << " ymax: " << ymax << " xmax-xmin "<< xmax - xmin << " ymax-ymin " << ymax - ymin <<" imagesize: "<<image.size()<< endl;
 		img.size() = Size(xmax-xmin,ymax-ymin);

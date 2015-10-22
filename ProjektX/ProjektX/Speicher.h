@@ -14,7 +14,7 @@ public:
 	bool Speicher::Save(cv::Mat img1, std::string ordner, std::string uordner);
 	bool Speicher::Save(cv::Mat img1, cv::Mat img2, std::string ordner, std::string uordner);
 	bool SetFolder(std::string ordner);
-	string verzeichnis= "C:\\";
+	std::string verzeichnis= "C:\\";
 	//LPSTR curDirectory;
 };
 
