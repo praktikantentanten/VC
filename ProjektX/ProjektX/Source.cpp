@@ -21,7 +21,7 @@ int main(int argc, char *argv[])
 		Mat image = imread("adam1.png", 0);
 		double alpha = 10; double beta = 90; double gamma = 90; double theta = 10; double phi = 90; string buf;
 		Projektion Proj; Speicher Speicher; Mat imageOut = image; Mathe Mathe; KeyPointProjektor KPProj;
-		Mat winkels = (Mat_<double>(3, 2) << 0, 0,45,45,30,225); // Mat für Winkel
+		Mat winkels = (Mat_<double>(3, 2) << 10, 0,20,0,30,0); // Mat für Winkel
 
 		Mat img;													//Zwischenspeicher
 		Mat coord1 =(Mat_ <double>(3,1) << 0, 0, 1);				//Zwischenspeicher
@@ -52,11 +52,9 @@ int main(int argc, char *argv[])
 			images.push_back( Proj.bildRotieren(image, winkels.at<double>(i, 0), winkels.at<double>(i, 1)) );
 			imgProj.push_back(Proj);
 			imagenName.push_back(Mathe.WinkelZuString(winkels.at<double>(i, 0), winkels.at<double>(i, 1)));
-			//Speicher.Save(images.at(i), "test", imagenName.at(i)); //Abspeichern
+			Speicher.Save(images.at(i), "test", imagenName.at(i)); //Abspeichern
 		}
-		buf = imagenName.at(k);
-		KPProj.keyPointsProj(bboxes, imgProj.at(k).sizeBerechnen(coord1, coord2, coord3, coord4, imgProj.at(k).trans), imgProj.at(k).trans, images.at(k), buf);
-		/*
+				
 		//für jedes proj. Bild
 		for (k = 0; k < images.size(); k++)
 		{			
@@ -65,10 +63,10 @@ int main(int argc, char *argv[])
 			
 		}
 
-		*/
+		
 		//bild erzeugen
 		//imageOut = Proj.bildRotieren(image, alpha,beta,gamma);
-		imageOut = Proj.bildRotieren(image, theta, phi);
+		//imageOut = Proj.bildRotieren(image, theta, phi);
 
 
 		//Speichern
