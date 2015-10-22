@@ -53,7 +53,7 @@ bool Speicher::Save(cv::Mat img1, cv::Mat img2, std::string ordner, std::string 
 bool Speicher::SetFolder(std::string ordner)
 {	
 	
-	std::string buf = "C:\\" + ordner;
+	std::string buf = verzeichnis + ordner;
 	LPSTR curDirectory = const_cast<char *> (buf.c_str());
 	//std::cout << "buffer erfolgreich: " << std::endl;
 	//Ordner erzeugen

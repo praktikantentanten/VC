@@ -141,7 +141,8 @@ Mat Projektion::matrixErrechnen(double alpha = 90, double beta = 90, double gamm
 		0, 1, (0 - ymin),
 		0, 0, 1);
 	//std::cout << "MatrixErrechnen erfolgreich" << std::endl;
-	return tlt*trans;
+	trans = tlt*trans;
+	return trans;
 };
 
 
