@@ -24,6 +24,7 @@ public:
 	Mat Projektion::PunktVerschieben(Mat punkt,Mat trans);
 	Mat Projektion::PunktVerschieben(Mat punkt, Mat trans, Mat transL); // Überladen
 	std::vector <Mat> Projektion::PunkteVerschieben(std::vector<Mat> punkte, Mat trans);
+	std::vector <Point2f> Projektion::PunkteVerschieben(std::vector<Point> punkte, Mat trans);
 	//BildInput
 	Mat image;
 	//BildOutput

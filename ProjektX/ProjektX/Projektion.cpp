@@ -206,7 +206,7 @@ Eingabe: Punkt, Transformationsmatrix
 */
 Mat Projektion::PunktVerschieben(Mat punkt,Mat trans){
 	Mat punktT = trans*punkt;
-	punktT.at<double>(0, 0) = punktT.at<double>(0, 0)/punktT.at<double>(2, 0);
+	punktT.at<double>(0, 0) = punktT.at<double>(0, 0) / punktT.at<double>(2, 0);
 	punktT.at<double>(1, 0) = punktT.at<double>(1, 0) / punktT.at<double>(2, 0);
 
 	return punktT;
@@ -218,5 +218,13 @@ std::vector <Mat> Projektion::PunkteVerschieben(std::vector<Mat> punkte, Mat tra
 		
 	}
 	return punkteT;
+}std::vector <Point2f> Projektion::PunkteVerschieben(std::vector<Point> punkte, Mat trans) {
+	std::vector <Point2f> punkteT ;
+	punkteT.resize(punkte.size());
+	Mat buffer;
+	for (int i = 0; i < punkte.size(); i++) {
+		buffer= PunktVerschieben((Mat_<double>(3, 1) << punkte.at(i).x, punkte.at(i).y, 1), trans);
+		punkteT.at(i) = Point2f(buffer.at<double>(0,0),buffer.at<double>(1,0));
+	}
+	return punkteT;
 }
-
