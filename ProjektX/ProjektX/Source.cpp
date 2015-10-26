@@ -42,6 +42,7 @@ int main(int argc, char *argv[])
 		Ptr<cv::MSER> mser = MSER::create();
 		vector< vector<Point > > ptblobs;
 		vector<Rect> bboxes;
+		vector<RotatedRect>bboxez;
 		//MSER Detect wird ausgeführt 
 		mser->detectRegions(image, ptblobs, bboxes);
 
@@ -52,9 +53,10 @@ int main(int argc, char *argv[])
 			images.push_back( Proj.bildRotieren(image, winkels.at<double>(i, 0), winkels.at<double>(i, 1)) );
 			imgProj.push_back(Proj);
 			imagenName.push_back(Mathe.WinkelZuString(winkels.at<double>(i, 0), winkels.at<double>(i, 1)));
+			
+			
 			Speicher.Save(images.at(i), "test", imagenName.at(i)); //Abspeichern
 		}
-		
 		//für jedes proj. Bild
 		for (k = 0; k < images.size(); k++)
 		{			
@@ -63,8 +65,13 @@ int main(int argc, char *argv[])
 			coord3.at<double>(0, 0) = images.at(k).size().width;
 			coord4.at<double>(0, 0) = images.at(k).size().width;
 			coord4.at<double>(1, 0) = images.at(k).size().height;
-			KPProj.keyPointsProj(ptblobs, imgProj.at(k).sizeBerechnen(coord1, coord2, coord3, coord4, imgProj.at(k).trans) , imgProj.at(k).trans, images.at(k), buf);
-			
+			bboxez=KPProj.keyPointsProj(ptblobs, imgProj.at(k).sizeBerechnen(coord1, coord2, coord3, coord4, imgProj.at(k).trans) , imgProj.at(k).trans, images.at(k), buf);
+			for (int j = 0; j < bboxez.size(); j++)
+			{
+				
+				ellipse(images.at(k), bboxez.at(j), (255, 255, 255));
+			}
+			Speicher.Save(images.at(k), "testo", imagenName.at(k));
 		}
 
 		

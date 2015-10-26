@@ -12,7 +12,7 @@ class KeyPointProjektor
 public:
 	KeyPointProjektor();
 	~KeyPointProjektor();
-	bool KeyPointProjektor::keyPointsProj( vector<vector<Point>>& ptblobs, vector<double> coordZ, Mat trans, Mat image, string name);
+	vector<cv::RotatedRect> KeyPointProjektor::keyPointsProj( vector<vector<Point>>& ptblobs, vector<double> coordZ, Mat trans, Mat image, string name);
 	vector<Rect> bboxes;
 };
 

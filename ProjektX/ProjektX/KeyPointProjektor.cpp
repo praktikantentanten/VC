@@ -24,7 +24,7 @@ vector<Rect> bboxes;
 Mat coordZ = imgProj.at(k).sizeBerechnen(coord1, coord2, coord3, coord4, imgProj.at(k).trans);
 
 */
- bool KeyPointProjektor::keyPointsProj( vector<vector<Point>>& ptblobs, vector<double> coordZ, Mat trans,Mat image,string name)
+vector<cv::RotatedRect> KeyPointProjektor::keyPointsProj( vector<vector<Point>>& ptblobs, vector<double> coordZ, Mat trans,Mat image,string name)
 {
 	Mat tlt = (Mat_<double>(3, 3) <<
 		1, 0, (0 - coordZ.at(0)),
@@ -35,6 +35,7 @@ Mat coordZ = imgProj.at(k).sizeBerechnen(coord1, coord2, coord3, coord4, imgProj
 	RotatedRect box;
 	Speicher Speicher;
 	Projektion Proj;
+	vector<cv::RotatedRect>bboxes;
 	vector<vector<Point2f>>transfPtBlobs;
 	transfPtBlobs.resize(ptblobs.size());
 	Speicher.SetFolder("praktikum");
@@ -47,13 +48,14 @@ Mat coordZ = imgProj.at(k).sizeBerechnen(coord1, coord2, coord3, coord4, imgProj
 		cout << "KeypointNr:"   << i << endl;
 		transfPtBlobs.at(i) = Proj.PunkteVerschieben(ptblobs.at(i), trans); // aus jedem Vector<Punkt> wird eine Vector<Mat> und projeziert diesen
 		box = minAreaRect(Mat(transfPtBlobs.at(i))); //Vector<Punkt> werden zu einem RotRect
+		bboxes.push_back(box);
 		getRectSubPix(image, box.size, box.center, img); //RotRect wird zu Mat
 		cout << "ImageName: " << ad<<"|-|"<<name << endl;
 		Speicher.Save(img, ad, ad + name); //Mat wird gespeichert
 		
 	}
 
-	return true;
+	return bboxes;
 
 }
  /*
