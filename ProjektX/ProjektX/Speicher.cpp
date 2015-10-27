@@ -23,17 +23,9 @@ bool Speicher::Save(cv::Mat img, std::string ordner, std::string uordner)
 {
 	//Ordner für Eingangsbild
 	SetFolder(ordner);
-	//Unterordner für proj. Bild
-	//SetFolder("Praktikum\\" + ordner);
 	//Bilder speichern
 	std::string buffer = uordner + ".png";
-	//std::cout << buffer << std::endl;
-
-	cv::namedWindow("image");
-	imshow("image", img);
-	//cv::waitKey(0);
 	cv::imwrite(buffer, img);
-	//std::cout << "Save erfolgreich:" <<buffer<< std::endl;
 	return true;
 }
 
@@ -41,11 +33,6 @@ bool Speicher::Save(cv::Mat img, std::string ordner, std::string uordner)
 bool Speicher::Save(cv::Mat img1, cv::Mat img2, std::string ordner, std::string uordner)
 {
 	Save(img1, ordner, uordner);
-	/*
-	std::string buffer2 = "keypoints" + uordner + ".png";
-	cv::imwrite(buffer2, img2);
-	*/
-	//std::cout << "Save erfolgreich" << std::endl;
 	return true;
 }
 
@@ -55,14 +42,11 @@ bool Speicher::SetFolder(std::string ordner)
 	
 	std::string buf = verzeichnis + ordner;
 	LPSTR curDirectory = const_cast<char *> (buf.c_str());
-	//std::cout << "buffer erfolgreich: " << std::endl;
 	//Ordner erzeugen
-	//if(SetCurrentDirectory(curDirectory) ==0)
 	CreateDirectory(curDirectory,NULL);
-	//std::cout << "CreateDirectory erfolgreich " << std::endl;
 	//als Arbeitsumgebung setzen
 	SetCurrentDirectory(curDirectory);
-	//std::cout << "SetFolder erfolgreich" << buf << std::endl;
+	std::cout << "SetFolder erfolgreich" << buf << std::endl;
 	return true;
 }
 

@@ -46,13 +46,10 @@ vector<cv::RotatedRect> KeyPointProjektor::keyPointsProj( vector<vector<Point>>&
 	for (i = 0; i < ptblobs.size(); i++)
 	{
 		ad = "k"+to_string(i);		
-		//cout << endl;
-		//cout << "KeypointNr:"   << i << endl;
 		transfPtBlobs.at(i) = Proj.PunkteVerschieben(ptblobs.at(i), trans); // aus jedem Vector<Punkt> wird eine Vector<Mat> und projeziert diesen
 		box = minAreaRect(Mat(transfPtBlobs.at(i))); //Vector<Punkt> werden zu einem RotRect
 		bboxes.push_back(box);
-		getRectSubPix(image, box.size, box.center, img); //RotRect wird zu Mat
-		//cout << "ImageName: " << ad<<"|-|"<<name << endl;
+		getRectSubPix(image, box.size, box.center, img); //RotRect wird zu Mat		
 		Speicher.Save(img, ad, ad + name); //Mat wird gespeichert
 		
 	}

@@ -52,15 +52,11 @@ int main(int argc, char *argv[])
 		for (i = 0; i <winkels.size().height;i++)
 		{
 			//bilder drehen, wichtige Teile speichern
-			images.push_back( Proj.bildRotieren(image, winkels.at<double>(i, 0), winkels.at<double>(i, 1)) );
-			cout << Proj.trans << endl;			
+			images.push_back( Proj.bildRotieren(image, winkels.at<double>(i, 0), winkels.at<double>(i, 1)) );					
 			imgTrans.push_back(Proj.trans.clone());
 			imagenName.push_back(Mathe.WinkelZuString(winkels.at<double>(i, 0), winkels.at<double>(i, 1)));
 						
 			Speicher.Save(images.at(i), "test", imagenName.at(i)); //Abspeichern
-		}
-		for (i = 0; i < imgTrans.size(); ++i) {
-			cout << "imgTrans.at(i): " << imgTrans.at(i) << endl;				
 		}
 		//für jedes proj. Bild
 		for (k = 0; k < images.size(); k++)
@@ -71,7 +67,7 @@ int main(int argc, char *argv[])
 			coord4.at<double>(0, 0) = images.at(k).size().width;
 			coord4.at<double>(1, 0) = images.at(k).size().height;
 			bboxez=KPProj.keyPointsProj(ptblobs, Proj.sizeBerechnen(coord1, coord2, coord3, coord4, imgTrans.at(k)) , imgTrans.at(k), images.at(k), buf);
-			
+			//für jede BoundingBox
 			for (int j = 0; j < bboxez.size(); j++)
 			{
 				
