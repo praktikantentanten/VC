@@ -32,14 +32,15 @@ int main(int argc, char *argv[])
 		vector<double> coordZ;										//Zwischenspeicher
 		vector<Mat> images;											//alle proj. Bildern
 		vector<String>imagenName;									//Bildnamen von allen proj. Bildern
-		vector<Mat> imgTrans;									//alle Projektion-Obj zu den proj. Bildern		
+		vector<Mat> imgTrans;									//alle Matrizen zu den proj. Bildern		
 		int i;  int k=1;								        	//Zählvariablen für Schleifen
 
 		//bildnamen aus Parametern erstellen
 		string s1 = Mathe.WinkelZuString(alpha, beta, gamma);
 		string s2 = Mathe.WinkelZuString(theta, phi);
 		string ad = "adam1";
-		/// fehler:
+
+		
 		Ptr<cv::MSER> mser = MSER::create();
 		vector< vector<Point > > ptblobs;
 		vector<Rect> bboxes;
@@ -52,11 +53,14 @@ int main(int argc, char *argv[])
 		{
 			//bilder drehen, wichtige Teile speichern
 			images.push_back( Proj.bildRotieren(image, winkels.at<double>(i, 0), winkels.at<double>(i, 1)) );
-			imgTrans.push_back(Proj.trans);
+			cout << Proj.trans << endl;			
+			imgTrans.push_back(Proj.trans.clone());
 			imagenName.push_back(Mathe.WinkelZuString(winkels.at<double>(i, 0), winkels.at<double>(i, 1)));
-			
-			
+						
 			Speicher.Save(images.at(i), "test", imagenName.at(i)); //Abspeichern
+		}
+		for (i = 0; i < imgTrans.size(); ++i) {
+			cout << "imgTrans.at(i): " << imgTrans.at(i) << endl;				
 		}
 		//für jedes proj. Bild
 		for (k = 0; k < images.size(); k++)
@@ -66,10 +70,8 @@ int main(int argc, char *argv[])
 			coord3.at<double>(0, 0) = images.at(k).size().width;
 			coord4.at<double>(0, 0) = images.at(k).size().width;
 			coord4.at<double>(1, 0) = images.at(k).size().height;
-			trans = imgTrans.at(k);
-			cout << trans << endl;
-			bboxez=KPProj.keyPointsProj(ptblobs, Proj.sizeBerechnen(coord1, coord2, coord3, coord4, trans) , trans, images.at(k), buf);
-			cout << trans << endl;
+			bboxez=KPProj.keyPointsProj(ptblobs, Proj.sizeBerechnen(coord1, coord2, coord3, coord4, imgTrans.at(k)) , imgTrans.at(k), images.at(k), buf);
+			
 			for (int j = 0; j < bboxez.size(); j++)
 			{
 				
