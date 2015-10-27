@@ -27,13 +27,13 @@ bool Speicher::Save(cv::Mat img, std::string ordner, std::string uordner)
 	//SetFolder("Praktikum\\" + ordner);
 	//Bilder speichern
 	std::string buffer = uordner + ".png";
-	std::cout << buffer << std::endl;
+	//std::cout << buffer << std::endl;
 
 	cv::namedWindow("image");
 	imshow("image", img);
 	//cv::waitKey(0);
 	cv::imwrite(buffer, img);
-	std::cout << "Save erfolgreich:" <<buffer<< std::endl;
+	//std::cout << "Save erfolgreich:" <<buffer<< std::endl;
 	return true;
 }
 
@@ -45,7 +45,7 @@ bool Speicher::Save(cv::Mat img1, cv::Mat img2, std::string ordner, std::string 
 	std::string buffer2 = "keypoints" + uordner + ".png";
 	cv::imwrite(buffer2, img2);
 	*/
-	std::cout << "Save erfolgreich" << std::endl;
+	//std::cout << "Save erfolgreich" << std::endl;
 	return true;
 }
 
@@ -62,7 +62,7 @@ bool Speicher::SetFolder(std::string ordner)
 	//std::cout << "CreateDirectory erfolgreich " << std::endl;
 	//als Arbeitsumgebung setzen
 	SetCurrentDirectory(curDirectory);
-	std::cout << "SetFolder erfolgreich" << buf << std::endl;
+	//std::cout << "SetFolder erfolgreich" << buf << std::endl;
 	return true;
 }
 

@@ -38,19 +38,21 @@ vector<cv::RotatedRect> KeyPointProjektor::keyPointsProj( vector<vector<Point>>&
 	vector<cv::RotatedRect>bboxes;
 	vector<vector<Point2f>>transfPtBlobs;
 	transfPtBlobs.resize(ptblobs.size());
+
 	Speicher.SetFolder("praktikum");
 	Speicher.verzeichnis = "C:\\praktikum\\";
+	bboxes.empty();
 	//für jedes FeatureFeld
 	for (i = 0; i < ptblobs.size(); i++)
 	{
 		ad = "k"+to_string(i);		
-		cout << endl;
-		cout << "KeypointNr:"   << i << endl;
+		//cout << endl;
+		//cout << "KeypointNr:"   << i << endl;
 		transfPtBlobs.at(i) = Proj.PunkteVerschieben(ptblobs.at(i), trans); // aus jedem Vector<Punkt> wird eine Vector<Mat> und projeziert diesen
 		box = minAreaRect(Mat(transfPtBlobs.at(i))); //Vector<Punkt> werden zu einem RotRect
 		bboxes.push_back(box);
 		getRectSubPix(image, box.size, box.center, img); //RotRect wird zu Mat
-		cout << "ImageName: " << ad<<"|-|"<<name << endl;
+		//cout << "ImageName: " << ad<<"|-|"<<name << endl;
 		Speicher.Save(img, ad, ad + name); //Mat wird gespeichert
 		
 	}

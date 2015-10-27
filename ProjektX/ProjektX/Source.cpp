@@ -21,17 +21,18 @@ int main(int argc, char *argv[])
 		Mat image = imread("adam1.png", 0);
 		double alpha = 10; double beta = 90; double gamma = 90; double theta = 10; double phi = 90; string buf;
 		Projektion Proj; Speicher Speicher; Mat imageOut = image; Mathe Mathe; KeyPointProjektor KPProj;
-		Mat winkels = (Mat_<double>(4, 2) << 0,0, 20,90, 10,180, 30,270); // Mat für Winkel
+		Mat winkels = (Mat_<double>(5, 2) << 0,0, 20,90, 30,180, 30,270, 10,140); // Mat für Winkel
 
 		Mat img;													//Zwischenspeicher
 		Mat coord1 =(Mat_ <double>(3,1) << 0, 0, 1);				//Zwischenspeicher
 		Mat coord2 = (Mat_ <double>(3, 1) << 0, 0, 1);				//Zwischenspeicher
 		Mat coord3 = (Mat_ <double>(3, 1) << 0, 0, 1);				//Zwischenspeicher
 		Mat coord4 = (Mat_ <double>(3, 1) << 0, 0, 1);				//Zwischenspeicher
+		Mat trans;
 		vector<double> coordZ;										//Zwischenspeicher
 		vector<Mat> images;											//alle proj. Bildern
 		vector<String>imagenName;									//Bildnamen von allen proj. Bildern
-		vector<Projektion> imgProj;									//alle Projektion-Obj zu den proj. Bildern		
+		vector<Mat> imgTrans;									//alle Projektion-Obj zu den proj. Bildern		
 		int i;  int k=1;								        	//Zählvariablen für Schleifen
 
 		//bildnamen aus Parametern erstellen
@@ -51,7 +52,7 @@ int main(int argc, char *argv[])
 		{
 			//bilder drehen, wichtige Teile speichern
 			images.push_back( Proj.bildRotieren(image, winkels.at<double>(i, 0), winkels.at<double>(i, 1)) );
-			imgProj.push_back(Proj);
+			imgTrans.push_back(Proj.trans);
 			imagenName.push_back(Mathe.WinkelZuString(winkels.at<double>(i, 0), winkels.at<double>(i, 1)));
 			
 			
@@ -65,7 +66,10 @@ int main(int argc, char *argv[])
 			coord3.at<double>(0, 0) = images.at(k).size().width;
 			coord4.at<double>(0, 0) = images.at(k).size().width;
 			coord4.at<double>(1, 0) = images.at(k).size().height;
-			bboxez=KPProj.keyPointsProj(ptblobs, imgProj.at(k).sizeBerechnen(coord1, coord2, coord3, coord4, imgProj.at(k).trans) , imgProj.at(k).trans, images.at(k), buf);
+			trans = imgTrans.at(k);
+			cout << trans << endl;
+			bboxez=KPProj.keyPointsProj(ptblobs, Proj.sizeBerechnen(coord1, coord2, coord3, coord4, trans) , trans, images.at(k), buf);
+			cout << trans << endl;
 			for (int j = 0; j < bboxez.size(); j++)
 			{
 				

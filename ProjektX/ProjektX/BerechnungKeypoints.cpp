@@ -22,7 +22,7 @@ int main1(int argc, char *argv[])
 
 
 
-	imwrite("adamElipse.png", imageOut);
+	//imwrite("adamElipse.png", imageOut);
 	//Bild anzeigen
 	namedWindow("image");
 	imshow("image", imageOut);
